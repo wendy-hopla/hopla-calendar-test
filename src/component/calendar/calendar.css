@@ -519,7 +519,7 @@ li.hour-row :hover{
 @media(min-width: 1440px){
   .tail-datetime-calendar .calendar-date table tbody tr > *::after {
     top: 3px;
-    left: 41px !important;
+    left: 13px !important;
     width: 29px;
     height: 29px;
     content: "";
@@ -532,10 +532,10 @@ li.hour-row :hover{
     -webkit-border-radius: 50%;
   }
   .tail-datetime-calendar .calendar-navi span.button-next {
-    padding-right: 43px !important;
+    padding-right: 18px !important;
   }
   .tail-datetime-calendar .calendar-navi span.button-prev {
-    padding-left: 43px !important;
+    padding-left: 18px !important;
   }
 }
 @media(min-width: 2560px){
