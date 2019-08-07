@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+// import ReactDOM from 'react-dom';
 import moment from 'moment';
 import momentTZ from 'moment-timezone';
 import "./calendar.css";
@@ -15,6 +15,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Button from '@material-ui/core/Button';
+import { FixedSizeList } from 'react-window';
 
 // import { range } from "moment-range";
 
@@ -81,14 +82,6 @@ class Calendar extends Component {
     renderShowCurrentHour() {
         return this.state.dateObject.format("HH:mm");
     }
-
-    // render() {
-    //     return (
-    //         <React.Fragment>
-                
-    //         </React.Fragment>
-    //     );
-    // }
 
     daysInMonth = () => {
         return this.state.dateObject.daysInMonth();
@@ -170,7 +163,7 @@ class Calendar extends Component {
         let cells = [];
     
         months.forEach((row, i) => {
-          if (i % 3 !== 0 || i == 0) {
+          if (i % 3 !== 0 || i === 0) {
             cells.push(row);
           } else {
             rows.push(cells);
@@ -203,7 +196,7 @@ class Calendar extends Component {
     
       onPrev = () => {
         let curr = "";
-        if (this.state.showMonthTable == true) {
+        if (this.state.showMonthTable === true) {
           curr = "year";
         } else {
           curr = "month";
@@ -214,7 +207,7 @@ class Calendar extends Component {
       };
       onNext = () => {
         let curr = "";
-        if (this.state.showMonthTable == true) {
+        if (this.state.showMonthTable === true) {
           curr = "year";
         } else {
           curr = "month";
@@ -231,7 +224,6 @@ class Calendar extends Component {
           dateObject: dateObject,
           showMonthTable: !this.state.showMonthTable,
           showYearNav: !this.state.showYearNav,
-          showMonthTable: !this.state.showMonthTable
         });
       };
       onYearChange = e => {
@@ -240,8 +232,8 @@ class Calendar extends Component {
       getDates(startDate, stopDate) {
         var dateArray = [];
         var currentDate = moment(startDate);
-        var stopDate = moment(stopDate);
-        while (currentDate <= stopDate) {
+        var stopDates = moment(stopDate);
+        while (currentDate <= stopDates) {
           dateArray.push(moment(currentDate).format("YYYY"));
           currentDate = moment(currentDate).add(1, "year");
         }
@@ -273,7 +265,7 @@ class Calendar extends Component {
         let cells = [];
     
         months.forEach((row, i) => {
-          if (i % 3 !== 0 || i == 0) {
+          if (i % 3 !== 0 || i === 0) {
             cells.push(row);
           } else {
             rows.push(cells);
@@ -332,7 +324,7 @@ class Calendar extends Component {
         }
         let daysInMonth = [];
         for (let d = 1; d <= this.daysInMonth(); d++) {
-          let currentDay = d == this.currentDay() ? "today" : "";
+          let currentDay = d === this.currentDay() ? "today" : "";
           /*let selectedClass = (d == this.state.selectedDay ? " selected-day " : "") */
           daysInMonth.push(
             <td key={d} className={`calendar-day ${currentDay}`}>
@@ -367,112 +359,113 @@ class Calendar extends Component {
         let daysinmonth = rows.map((d, i) => {
           return <tr>{d}</tr>;
         });
-    
+
         return (
-                <section className="body-section">
-                    <div className="top-header">
-                    { this.renderShowCurrentDay() }
-                    </div>
-                    <div className="cover-header">
-                    <div className="month-year">
-                    { this.renderShowCurrentMonthYear() }
-                    </div>
-                    <div className="day-num">
-                    { this.renderShowCurrentDayNum() }
-                    </div>
-                    <Row>
-                    <Col xs lg="2" className="calendar-icon">
-                    <FontAwesomeIcon icon="calendar-alt"/>
-                    </Col>
-                    <Col xs lg="8" className="hour-minute-range">{ this.renderShowCurrentHour() }</Col>
-                    <Col xs lg="2" className="clock-icon">
-                    <FontAwesomeIcon icon="clock" />
-                    </Col>
-                    </Row>
-                    </div>
-                    <Row>
-                        <Col className="calendar-column"> 
-                        <div className="tail-datetime-calendar">
-                            <div className="calendar-navi">
-                            <span
-                                onClick={e => {
-                                this.onPrev();
-                                }}
-                                className="calendar-button button-prev">
-                                <FontAwesomeIcon icon="caret-left" />
-                                </span>
-                            {!this.state.showMonthTable && !this.state.showYearEditor && (
-                                <span className="calendar-label calendar-label-left"
-                                onClick={e => {
-                                    this.showMonth();
-                                }}
-                                >
-                                {this.month()},
-                                </span>
-                            )}
-                            <span
-                                className="calendar-label calendar-label-right"
-                                onClick={e => {
-                                this.showYearEditor();
-                                }}
-                            >
-                                {this.year()}
-                            </span>
-                    
-                            <span
-                                onClick={e => {
-                                this.onNext();
-                                }}
-                                className="calendar-button button-next"
-                            ><FontAwesomeIcon icon="caret-right" />
-                            </span>
-                            </div>
-                            <div className="calendar-date">
-                            {this.state.showYearNav && <this.YearTable props={this.year()} />}
-                            {this.state.showMonthTable && (
-                                <this.MonthList data={moment.months()} />
-                            )}
-                            </div>
-                    
-                            {this.state.showCalendarTable && (
-                            <div className="calendar-date">
-                                <table className="calendar-day">
-                                <thead>
-                                    <tr>{weekdayshortname}</tr>
-                                </thead>
-                                <tbody>{daysinmonth}</tbody>
-                                </table>
-                            </div>
-                            )}
-                        </div>
-                        </Col>
-                        <Col>
-                        <div className="col filter-column">
-                        <FormControl variant="filled" className={classes.formControl}>
-                        <InputLabel>Timezone</InputLabel>
-                          <Select value={this.state.timeZone} onChange={this.handleChange('timeZone')} input={<FilledInput placeholder="GMT+2 (South Africa)" name="timeZone" id="filled-timeZone-simple"/>}>
-                            <MenuItem>GMT+2 (South Africa)</MenuItem>
-                            {this.state.timeZone.map(data => <MenuItem key={data} className="time-list"><span>{data}</span><br/></MenuItem>)}
-                          </Select>
-                        </FormControl>
-                        <List className="hour">
-                        <Scrollbars>
-                          {this.state.hourList.map(data => <ListItem key={data} className="hour-row"><ListItemText className="hour-item">{data}</ListItemText><br/></ListItem>)}
-                        </Scrollbars>
-                        </List>
-                        <Button variant="contained" color="primary" className="button-primary">
-                          BOOK
-                        </Button>
-                        </div>
-                        </Col>
-                    </Row>
-                </section>
+          <section className="body-section">
+              <div className="top-header">
+              { this.renderShowCurrentDay() }
+              </div>
+              <div className="cover-header">
+              <div className="month-year">
+              { this.renderShowCurrentMonthYear() }
+              </div>
+              <div className="day-num">
+              { this.renderShowCurrentDayNum() }
+              </div>
+              <Row>
+              <Col xs lg="2" className="calendar-icon">
+              <FontAwesomeIcon icon="calendar-alt"/>
+              </Col>
+              <Col xs lg="8" className="hour-minute-range">{ this.renderShowCurrentHour() }</Col>
+              <Col xs lg="2" className="clock-icon">
+              <FontAwesomeIcon icon="clock" />
+              </Col>
+              </Row>
+              </div>
+              <Row>
+                  <Col className="calendar-column"> 
+                  <div className="tail-datetime-calendar">
+                      <div className="calendar-navi">
+                      <span
+                          onClick={e => {
+                          this.onPrev();
+                          }}
+                          className="calendar-button button-prev">
+                          <FontAwesomeIcon icon="caret-left" />
+                          </span>
+                      {!this.state.showMonthTable && !this.state.showYearEditor && (
+                          <span className="calendar-label calendar-label-left"
+                          onClick={e => {
+                              this.showMonth();
+                          }}
+                          >
+                          {this.month()},
+                          </span>
+                      )}
+                      <span
+                          className="calendar-label calendar-label-right"
+                          onClick={e => {
+                          this.showYearEditor();
+                          }}
+                      >
+                          {this.year()}
+                      </span>
+              
+                      <span
+                          onClick={e => {
+                          this.onNext();
+                          }}
+                          className="calendar-button button-next"
+                      ><FontAwesomeIcon icon="caret-right" />
+                      </span>
+                      </div>
+                      <div className="calendar-date">
+                      {this.state.showYearNav && <this.YearTable props={this.year()} />}
+                      {this.state.showMonthTable && (
+                          <this.MonthList data={moment.months()} />
+                      )}
+                      </div>
+              
+                      {this.state.showCalendarTable && (
+                      <div className="calendar-date">
+                          <table className="calendar-day">
+                          <thead>
+                              <tr>{weekdayshortname}</tr>
+                          </thead>
+                          <tbody>{daysinmonth}</tbody>
+                          </table>
+                      </div>
+                      )}
+                  </div>
+                  </Col>
+                  {/* <Col>
+                  <div className="col filter-column">
+                  <FormControl variant="filled" className={classes.formControl}>
+                  <InputLabel>Timezone</InputLabel>
+                    <Select value={this.state.timeZone} onChange={this.handleChange('timeZone')} input={<FilledInput placeholder="GMT+2 (South Africa)" name="timeZone" id="filled-timeZone-simple"/>}>
+                      <MenuItem>GMT+2 (South Africa)</MenuItem>
+                      {this.state.timeZone.map(data => <MenuItem key={data} className="time-list"><span>{data}</span><br/></MenuItem>)}
+                    </Select>
+                  </FormControl>
+                  <List className="hour">
+                  <Scrollbars>
+                    {this.state.hourList.map(data => <ListItem key={data} className="hour-row"><ListItemText className="hour-item">{data}</ListItemText><br/></ListItem>)}
+                  </Scrollbars>
+                  </List>
+                  <Button variant="contained" color="primary" className="button-primary">
+                    BOOK
+                  </Button>
+                  </div>
+                  </Col> */}
+              </Row>
+          </section>
         );
     }
 }
 
 Calendar.propTypes = {
   classes: PropTypes.object.isRequired,
+  style: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles) (Calendar);

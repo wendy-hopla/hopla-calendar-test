@@ -41,6 +41,8 @@ body{
   color: rgba(255, 255, 255, .54);
 }
 .body-section{
+  width:400px;
+  text-align: center;
   overflow: hidden;
 }
 .calendar-icon{
@@ -52,8 +54,8 @@ body{
   margin-top: 7px;
 }
 .calendar-column{
-  margin-top: 8px;
-  padding: 24px 24px 24px 37px;
+  margin-top: 16px;
+  /* padding: 24px 24px 24px 37px; */
 }
 .filter-column{
   display: block;
@@ -76,18 +78,27 @@ body{
 .hour::-webkit-scrollbar { 
   display: none;  
 }
-.hour-row{
+/* .hour-row{
   padding: 24px !important;
-}
+} */
 .hour-item{
   text-align: center;
 }
-.hour-row :hover{
+li.hour-row{
+  padding: 24px !important;
+}
+li.hour-row :hover{
   cursor:pointer;
   background-color:#EBEBEB;
   color: #000;
   font-weight: 500;
 }
+/* .hour-row :hover{
+  cursor:pointer;
+  background-color:#EBEBEB;
+  color: #000;
+  font-weight: 500;
+} */
 .button-primary{
   padding: 16px !important; 
   width: 100%;
@@ -421,7 +432,7 @@ body{
     display: none;
   }
   .tail-datetime-calendar {
-  width: 93vw;
+  width: 100%;
   height: auto;
   padding: 0;
   display: block;
@@ -463,7 +474,7 @@ body{
 @media(min-width: 1024px){
   .tail-datetime-calendar .calendar-date table tbody tr > *::after {
     top: 3px;
-    left: 21px !important;
+    left: 13px !important;
     width: 29px;
     height: 29px;
     content: "";
@@ -476,10 +487,10 @@ body{
     -webkit-border-radius: 50%;
   }
   .tail-datetime-calendar .calendar-navi span.button-next {
-    padding-right: 29px !important;
+    padding-right: 0;
   }
   .tail-datetime-calendar .calendar-navi span.button-prev {
-    padding-left: 29px !important;
+    padding-left: 0;
   }
 }
 @media(min-width: 1280px){
