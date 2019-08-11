@@ -8,67 +8,67 @@
  |  @copyright     Copyright Â© 2018 - SamBrishes, pytesNET <pytes@gmx.net>
  |                 Copyright Â© 2018 - MrGuiseppe <https://github.com/MrGuiseppe>
  */
-body{
+body {
   background: #fff;
   overflow-x: hidden;
 }
-.header-section{
+.header-section {
   position: relative;
 }
-.top-header{
+.top-header {
   text-align: center;
   padding: 8px;
-  background: #00897B;
+  background: #00897b;
   color: #fff;
   width: 100%;
 }
-.cover-header{
+.cover-header {
   text-align: center;
   padding: 16px;
   background: #009688;
   color: #fff;
 }
-.month-year{
-  margin-bottom: -16px;;
+.month-year {
+  margin-bottom: -16px;
   font-size: 24px;
 }
-.day-num{
+.day-num {
   margin-bottom: -16px;
   font-size: 80px;
 }
-.hour-minute-range{
+.hour-minute-range {
   font-size: 24px;
-  color: rgba(255, 255, 255, .54);
+  color: rgba(255, 255, 255, 0.54);
 }
-.body-section{
-  width:400px;
+.body-section {
+  width: 400px;
   text-align: center;
   overflow: hidden;
 }
-.calendar-icon{
+.calendar-icon {
   text-align: left;
   margin-top: 5px;
 }
-.clock-icon{
+.clock-icon {
   text-align: right;
   margin-top: 7px;
 }
-.calendar-column{
+.calendar-column {
   display: block;
   margin-top: 16px;
   /* padding: 24px 24px 24px 37px; */
 }
-.filter-column{
+.filter-column {
   display: block;
   padding: 24px 40px 24px 24px;
 }
-.calendar-view{
+.calendar-view {
   display: block;
 }
-.time-list{
+.time-list {
   padding: 16px !important;
 }
-.hour{
+.hour {
   height: 360px;
   margin-top: 16px !important;
   margin-bottom: 16px !important;
@@ -76,21 +76,21 @@ body{
   display: block;
   scrollbar-width: thin;
 }
-.hour::-webkit-scrollbar { 
-  display: none;  
+.hour::-webkit-scrollbar {
+  display: none;
 }
 /* .hour-row{
   padding: 24px !important;
 } */
-.hour-item{
+.hour-item {
   text-align: center;
 }
-li.hour-row{
+li.hour-row {
   padding: 24px !important;
 }
-li.hour-row :hover{
-  cursor:pointer;
-  background-color:#EBEBEB;
+li.hour-row :hover {
+  cursor: pointer;
+  background-color: #ebebeb;
   color: #000;
   font-weight: 500;
 }
@@ -100,8 +100,8 @@ li.hour-row :hover{
   color: #000;
   font-weight: 500;
 } */
-.button-primary{
-  padding: 16px !important; 
+.button-primary {
+  padding: 16px !important;
   width: 100%;
   background-color: #005738 !important;
 }
@@ -147,10 +147,10 @@ li.hour-row :hover{
   background-repeat: no-repeat;
   background-position: center center;
 }
-.calendar-label-left{
+.calendar-label-left {
   text-align: right;
 }
-.calendar-label-right{
+.calendar-label-right {
   text-align: left;
   padding-left: 4px;
 }
@@ -193,7 +193,7 @@ li.hour-row :hover{
 }
 .tail-datetime-calendar .calendar-date table thead tr > *,
 .tail-datetime-calendar .calendar-date table tbody tr > * {
-  color: rgba(0, 0, 0, .55);
+  color: rgba(0, 0, 0, 0.55);
   width: 35px;
   height: 35px;
   padding: 0;
@@ -381,98 +381,101 @@ li.hour-row :hover{
   line-height: 12px;
 }
 /* @end tail.DateTime */
+.MuiFormControl-root {
+  width: 100%;
+}
 
 /* @start of media queries */
-@media(min-width: 320px){
-  .tail-datetime-calendar .calendar-date table tbody tr > *::after{
+@media (min-width: 320px) {
+  .tail-datetime-calendar .calendar-date table tbody tr > *::after {
     left: 7px !important;
   }
   .calendar-column {
     margin-top: 8px;
     padding: 24px 24px 24px 24px;
+  }
 }
-}
-@media(min-width: 375px){
-  .tail-datetime-calendar .calendar-date table tbody tr > *::after{
+@media (min-width: 375px) {
+  .tail-datetime-calendar .calendar-date table tbody tr > *::after {
     left: 11px !important;
   }
   .calendar-column {
     margin-top: 8px;
     padding: 24px 24px 24px 24px;
+  }
 }
-}
-@media(min-width: 425px){
-  .tail-datetime-calendar .calendar-date table tbody tr > *::after{
+@media (min-width: 425px) {
+  .tail-datetime-calendar .calendar-date table tbody tr > *::after {
     left: 14px !important;
   }
   .calendar-column {
     margin-top: 8px;
     padding: 24px 24px 24px 24px;
+  }
 }
-}
-@media(min-width: 540px){
-  .tail-datetime-calendar .calendar-date table tbody tr > *::after{
+@media (min-width: 540px) {
+  .tail-datetime-calendar .calendar-date table tbody tr > *::after {
     left: 22px !important;
   }
   .calendar-column {
     margin-top: 8px;
     padding: 24px 24px 24px 24px;
+  }
 }
-}
-@media(min-width: 680px){
-  .tail-datetime-calendar .calendar-date table tbody tr > *::after{
+@media (min-width: 680px) {
+  .tail-datetime-calendar .calendar-date table tbody tr > *::after {
     left: 29px !important;
   }
   .calendar-column {
     margin-top: 8px;
     padding: 24px 24px 24px 24px;
+  }
 }
-}
-@media(max-width: 767px){
-  .filter-column{
+@media (max-width: 767px) {
+  .filter-column {
     display: none;
   }
   .tail-datetime-calendar {
-  width: 100%;
-  height: auto;
-  padding: 0;
-  display: block;
-  overflow: hidden;
-  position: relative;
-  font-family: "Roboto", sans-serif;
-  background-color: #ffffff;
+    width: 100%;
+    height: auto;
+    padding: 0;
+    display: block;
+    overflow: hidden;
+    position: relative;
+    font-family: "Roboto", sans-serif;
+    background-color: #ffffff;
+  }
+  .tail-datetime-calendar .calendar-navi span.button-next {
+    padding-right: 22px !important;
+  }
+  .tail-datetime-calendar .calendar-navi span.button-prev {
+    padding-left: 22px !important;
+  }
 }
-.tail-datetime-calendar .calendar-navi span.button-next {
-  padding-right: 22px !important;
+@media (min-width: 768px) {
+  /* Select a Day */
+  .tail-datetime-calendar .calendar-date table tbody tr > *::after {
+    top: 3px;
+    left: 8px !important;
+    width: 29px;
+    height: 29px;
+    content: "";
+    display: block;
+    position: absolute;
+    border-width: 1px;
+    border-style: solid;
+    border-color: transparent;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+  }
+  .tail-datetime-calendar .calendar-navi span.button-next {
+    padding-right: 16px !important;
+  }
+  .tail-datetime-calendar .calendar-navi span.button-prev {
+    padding-left: 16px !important;
+  }
 }
-.tail-datetime-calendar .calendar-navi span.button-prev {
-  padding-left: 22px !important;
-}
-}
-@media(min-width: 768px){
-/* Select a Day */
-.tail-datetime-calendar .calendar-date table tbody tr > *::after {
-  top: 3px;
-  left: 8px !important;
-  width: 29px;
-  height: 29px;
-  content: "";
-  display: block;
-  position: absolute;
-  border-width: 1px;
-  border-style: solid;
-  border-color: transparent;
-  border-radius: 50%;
-  -webkit-border-radius: 50%;
-}
-.tail-datetime-calendar .calendar-navi span.button-next {
-  padding-right: 16px !important;
-}
-.tail-datetime-calendar .calendar-navi span.button-prev {
-  padding-left: 16px !important;
-}
-}
-@media(min-width: 1024px){
+@media (min-width: 1024px) {
   .tail-datetime-calendar .calendar-date table tbody tr > *::after {
     top: 3px;
     left: 13px !important;
@@ -494,7 +497,7 @@ li.hour-row :hover{
     padding-left: 0;
   }
 }
-@media(min-width: 1280px){
+@media (min-width: 1280px) {
   .tail-datetime-calendar .calendar-date table tbody tr > *::after {
     top: 3px;
     left: 30px !important;
@@ -517,7 +520,7 @@ li.hour-row :hover{
   }
 }
 
-@media(min-width: 1440px){
+@media (min-width: 1440px) {
   .tail-datetime-calendar .calendar-date table tbody tr > *::after {
     top: 3px;
     left: 13px !important;
@@ -539,7 +542,7 @@ li.hour-row :hover{
     padding-left: 18px !important;
   }
 }
-@media(min-width: 2560px){
+@media (min-width: 2560px) {
   .tail-datetime-calendar .calendar-date table tbody tr > *::after {
     top: 3px;
     left: 75px !important;
