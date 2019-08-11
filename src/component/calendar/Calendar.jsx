@@ -6,8 +6,6 @@ import "./calendar.css";
 
 //Import Other Components
 import CalendarStep from "./CalendarStep";
-//Import Other Components
-import CalendarStepThree from "./CalendarStepThree";
 
 //Material UI
 import PropTypes from "prop-types";
@@ -77,7 +75,9 @@ class Calendar extends Component {
     displayTimeSelection: false,
     displayCalendarTable: false,
     displayForm: false,
-    formContainer: null
+    formContainer: null,
+    showCalendar: false,
+    showTime: false
   };
 
   renderShowCurrentDay() {
@@ -310,16 +310,6 @@ class Calendar extends Component {
       }
     );
   };
-  onTimeClick = () =>{
-    this.setState(
-      {
-        displayForm: false
-      },
-      () => {
-        this.displayForm();
-      }
-    );
-  }
   onCalendarIconClick = () => {
     this.setState(
       {
@@ -330,9 +320,26 @@ class Calendar extends Component {
       }
     );
   };
+  onClockIconClick = () => {
+    this.setState(
+      {
+        displayTimeTable: true,
+        displayCalendarTable: false
+      },
+    () => {
+      this.displayTimeTable();
+      this.displayCalendarTable();
+    }
+    );
+  }
   displayCalendarTable = () => {
     this.setState({
       displayCalendarTable: !this.state.displayCalendarTable
+    });
+  };
+  displayTimeTable = () => {
+    this.setState({
+      displayTimeTable: !this.state.displayTimeTable
     });
   };
   displayTimeSelection = () => {
@@ -349,14 +356,17 @@ class Calendar extends Component {
   render() {
     const { classes } = this.props;
 
+    // var showCalendar = {
+		// 	showCalendar: true
+		// };
+		
+		// var hidden = {
+		// 	display: this.state.shown ? "none" : "block"
+		// }
+
     let timeSelections = null;
     if (this.state.displayTimeSelection) {
       timeSelections = <CalendarStep />;
-    }
-
-    let formContainer = null;
-    if(this.state.formContainer) {
-      formContainer = <CalendarStepThree />;
     }
 
     let weekdayshortname = this.weekdayshort.map(day => {
@@ -413,8 +423,8 @@ class Calendar extends Component {
           <Row>
             <Col xs lg="2" className="calendar-icon">
               <span
-                onClick={e => {
-                  this.onCalendarIconClick();
+                onClick={() => {
+                  this.onCalendarIconClick()
                 }} className="icon-click"
               >
                 <FontAwesomeIcon icon="calendar-alt" />
@@ -424,13 +434,15 @@ class Calendar extends Component {
               {this.renderShowCurrentHour()}
             </Col>
             <Col xs lg="2" className="clock-icon">
-              <span className="icon-click">
+              <span 
+                onClick={() => {
+                  this.onClockIconClick()
+                }} className="icon-click">
                 <FontAwesomeIcon icon="clock" />  
               </span> 
             </Col>
           </Row>
         </div>
-        {formContainer}
         {timeSelections}
         <Row>
           <Col className="calendar-column">

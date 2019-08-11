@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 
 import "./calendar.css";
 
