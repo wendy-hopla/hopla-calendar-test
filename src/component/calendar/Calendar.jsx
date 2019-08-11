@@ -76,8 +76,7 @@ class Calendar extends Component {
     displayCalendarTable: false,
     displayForm: false,
     formContainer: null,
-    showCalendar: false,
-    showTime: false
+    shown: true
   };
 
   renderShowCurrentDay() {
@@ -310,6 +309,7 @@ class Calendar extends Component {
       }
     );
   };
+  
   onCalendarIconClick = () => {
     this.setState(
       {
@@ -320,26 +320,9 @@ class Calendar extends Component {
       }
     );
   };
-  onClockIconClick = () => {
-    this.setState(
-      {
-        displayTimeTable: true,
-        displayCalendarTable: false
-      },
-    () => {
-      this.displayTimeTable();
-      this.displayCalendarTable();
-    }
-    );
-  }
   displayCalendarTable = () => {
     this.setState({
       displayCalendarTable: !this.state.displayCalendarTable
-    });
-  };
-  displayTimeTable = () => {
-    this.setState({
-      displayTimeTable: !this.state.displayTimeTable
     });
   };
   displayTimeSelection = () => {
@@ -353,16 +336,22 @@ class Calendar extends Component {
 
   calendarTable = ({ show }) => {};
 
+  toggleCalendar(){
+    this.setState({
+      shown: !this.state.shown
+    });
+  }
+
   render() {
     const { classes } = this.props;
 
-    // var showCalendar = {
-		// 	showCalendar: true
-		// };
+    var shown = {
+			display: this.state.shown ? "block" : "none"
+		};
 		
-		// var hidden = {
-		// 	display: this.state.shown ? "none" : "block"
-		// }
+		var hidden = {
+			display: this.state.shown ? "none" : "block"
+		}
 
     let timeSelections = null;
     if (this.state.displayTimeSelection) {
@@ -424,7 +413,7 @@ class Calendar extends Component {
             <Col xs lg="2" className="calendar-icon">
               <span
                 onClick={() => {
-                  this.onCalendarIconClick()
+                  this.toggleCalendar()
                 }} className="icon-click"
               >
                 <FontAwesomeIcon icon="calendar-alt" />
@@ -434,18 +423,14 @@ class Calendar extends Component {
               {this.renderShowCurrentHour()}
             </Col>
             <Col xs lg="2" className="clock-icon">
-              <span 
-                onClick={() => {
-                  this.onClockIconClick()
-                }} className="icon-click">
+              <span className="icon-click">
                 <FontAwesomeIcon icon="clock" />  
               </span> 
             </Col>
           </Row>
         </div>
-        {timeSelections}
         <Row>
-          <Col className="calendar-column">
+          <Col className="calendar-column" style={ shown }>
             <div className="tail-datetime-calendar">
               <div className="calendar-navi">
                 <span
@@ -504,6 +489,15 @@ class Calendar extends Component {
                 </div>
               )}
             </div>
+          </Col>
+          <Col className="calendar-column" style={ hidden }>
+            {/* none */} 
+          </Col>
+          <Col style={ timeShown }>
+          {timeSelections}
+          </Col>
+          <Col style={ timeHidden }>
+          {/* none */}
           </Col>
           {/* <Col>
                   <div className="col filter-column">

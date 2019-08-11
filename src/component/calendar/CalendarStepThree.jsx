@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import Button from "@material-ui/core/Button";
 
 import "./calendar.css";
 
@@ -62,6 +63,13 @@ export default function CalendarStepThree(){
                 margin="normal"
                 variant="outlined"
             />
+            <Button
+            variant="contained"
+            color="primary"
+            className="button-primary"
+          >
+            BOOK
+          </Button>
         </form>
     );
 }
