@@ -4,6 +4,9 @@ import moment from 'moment';
 import momentTZ from 'moment-timezone';
 import "./calendar.css";
 
+//Import Other Components
+import CalendarStep from "./CalendarStep";
+
 //Material UI
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -49,6 +52,7 @@ const styles = theme => ({
   },
 });
 
+
 class Calendar extends Component {
     weekdayshort = moment.weekdaysMin();
 
@@ -67,7 +71,16 @@ class Calendar extends Component {
                   '04:30 - 05:00', '05:30 - 06:00', '06:30 - 07:00', '07:30 - 08:00', '08:30 - 09:00',
                   '09:30 - 10:00', '10:30 - 11:00', '11:30 - 12:00', '12:30 - 13:00', '13:30 - 14:00',
                   '14:30 - 15:00', '15:30 - 16:00', '16:30 - 17:00', '17:30 - 18:00', '18:30 - 19:00',
-                  '19:30 - 20:00', '20:30 - 21:00', '21:30 - 22:00', '22:30 - 23:00', '23:30 - 24:00']
+                  '19:30 - 20:00', '20:30 - 21:00', '21:30 - 22:00', '22:30 - 23:00', '23:30 - 24:00'],
+        timeSelections: [
+          { id: 'fdsd', hourList: ['00:00 - 00:30', '00:30 - 01:00', '01:30 - 02:00', '02:30 - 03:00', '03:30 - 04:00',
+          '04:30 - 05:00', '05:30 - 06:00', '06:30 - 07:00', '07:30 - 08:00', '08:30 - 09:00',
+          '09:30 - 10:00', '10:30 - 11:00', '11:30 - 12:00', '12:30 - 13:00', '13:30 - 14:00',
+          '14:30 - 15:00', '15:30 - 16:00', '16:30 - 17:00', '17:30 - 18:00', '18:30 - 19:00',
+          '19:30 - 20:00', '20:30 - 21:00', '21:30 - 22:00', '22:30 - 23:00', '23:30 - 24:00'] },
+          { id: 'adsf', title: 'If it will show the texts' },
+          { id: 'afdsf', title: 'Test succeed!' },],
+        displayTimeSelection: false
     }
 
     renderShowCurrentDay() {
@@ -292,13 +305,20 @@ class Calendar extends Component {
       onDayClick = (e, d) => {
         this.setState(
           {
-            selectedDay: d
+            selectedDay: d,
+            displayTimeSelection: false
           },
           () => {
             console.log("SELECTED DAY: ", this.state.selectedDay);
+            this.displayTimeSelection();
           }
         );
       };
+      displayTimeSelection = () => {
+        this.setState({
+            displayTimeSelection: !this.state.displayTimeSelection
+        })
+      }
 
       // componentDidMount() {
       //   this.setState({
@@ -312,8 +332,25 @@ class Calendar extends Component {
       handleChange = field => e => {
         this.setState({[field]: e.target.value})
       }
+
+      calendarTable = ({show}) => {
+        
+      }
+      
       render() {
         const { classes } = this.props;
+
+        let timeSelections = null;
+        if ( this.state.displayTimeSelection ) {
+          timeSelections = (
+          <div>
+               {/* { this.state.timeSelections.map((timeSelections, index) => { */}
+                 {/* return  */}
+                 <CalendarStep />
+               {/* })} */}
+          </div>
+          )
+        }
 
         let weekdayshortname = this.weekdayshort.map(day => {
           return <th key={day}>{day}</th>;
@@ -330,7 +367,8 @@ class Calendar extends Component {
             <td key={d} className={`calendar-day ${currentDay}`}>
               <span
                 onClick={e => {
-                  this.onDayClick(e, d);
+                  this.onDayClick(e, d); 
+                  
                 }}
               >
                 {d}
@@ -382,6 +420,7 @@ class Calendar extends Component {
               </Col>
               </Row>
               </div>
+              {timeSelections}
               <Row>
                   <Col className="calendar-column"> 
                   <div className="tail-datetime-calendar">

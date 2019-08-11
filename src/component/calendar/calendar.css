@@ -10,7 +10,7 @@
  */
 body{
   background: #fff;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 .header-section{
   position: relative;
@@ -54,6 +54,7 @@ body{
   margin-top: 7px;
 }
 .calendar-column{
+  display: block;
   margin-top: 16px;
   /* padding: 24px 24px 24px 37px; */
 }
