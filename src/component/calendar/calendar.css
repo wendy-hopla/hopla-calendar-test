@@ -84,6 +84,7 @@ body {
 } */
 .hour-item {
   text-align: center;
+  cursor: pointer;
 }
 li.hour-row {
   padding: 24px !important;
@@ -384,6 +385,9 @@ li.hour-row :hover {
 .MuiFormControl-root {
   width: 100%;
 }
+.icon-click{
+  cursor: pointer;
+}
 
 /* @start of media queries */
 @media (min-width: 320px) {
@@ -432,9 +436,9 @@ li.hour-row :hover {
   }
 }
 @media (max-width: 767px) {
-  .filter-column {
+  /* .filter-column {
     display: none;
-  }
+  } */
   .tail-datetime-calendar {
     width: 100%;
     height: auto;

@@ -18,6 +18,8 @@ import Button from "@material-ui/core/Button";
 import { FixedSizeList } from "react-window";
 
 // import { range } from "moment-range";
+//Import Other Components
+import CalendarStepThree from "./CalendarStepThree";
 
 //Bootstrap Grid
 import { Row } from "react-bootstrap";
@@ -84,17 +86,43 @@ class CalendarStep extends Component {
       "21:30 - 22:00",
       "22:30 - 23:00",
       "23:30 - 24:00"
-    ]
+    ],
+    displayForm: false,
+    formContainer: null
   };
 
   handleChange = field => e => {
     this.setState({ [field]: e.target.value });
   };
 
+  onTimeClick = () =>{
+    this.setState(
+      {
+        displayForm: false
+      },
+      () => {
+        this.displayForm();
+      }
+    );
+  }
+
+  displayForm = () => {
+    this.setState({
+      displayForm: !this.state.displayForm
+    });
+  }
+
   render() {
     const hourList = null;
-    return (
-      <Col>
+
+    let formContainer = null;
+    if(this.state.displayForm) {
+      formContainer = <CalendarStepThree />;
+    }
+
+    return(
+      <Col >
+      {formContainer}
         <div className="col filter-column">
           <FormControl variant="filled">
             <InputLabel>Timezone</InputLabel>
@@ -122,11 +150,17 @@ class CalendarStep extends Component {
             <Scrollbars>
               {this.state.hourList.map(data => (
                 <ListItem key={data} className="hour-row">
-                  <ListItemText className="hour-item">{data}</ListItemText>
-                  <br />
+                  <ListItemText className="hour-item">
+                    <span 
+                    onClick={e => {
+                      this.onTimeClick(e);
+                    }}
+                    >{data}
+                    </span>
+                  </ListItemText>
                 </ListItem>
               ))}
-              <HourList hourList={hourList} />
+              {/* <HourList hourList={hourList} /> */}
             </Scrollbars>
           </List>
           <Button
@@ -142,11 +176,9 @@ class CalendarStep extends Component {
   }
 }
 
-const HourList = props => (
-  <ListItem key={props.hourList} className="row">
-    <ListItemText>{props.hourList}</ListItemText>
-  </ListItem>
-);
+// const HourList = props => (
+//   <div>{props.hourList}</div>
+// );
 
 CalendarStep.propTypes = {
   classes: PropTypes.object.isRequired

@@ -6,19 +6,22 @@ import "./calendar.css";
 
 //Import Other Components
 import CalendarStep from "./CalendarStep";
+//Import Other Components
+import CalendarStepThree from "./CalendarStepThree";
 
 //Material UI
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import FilledInput from "@material-ui/core/FilledInput";
-import InputLabel from "@material-ui/core/InputLabel";
-import FormControl from "@material-ui/core/FormControl";
+import Slide from '@material-ui/core/Slide';
 import Select from "@material-ui/core/Select";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import Button from "@material-ui/core/Button";
-import { FixedSizeList } from "react-window";
+// import FilledInput from "@material-ui/core/FilledInput";
+// import InputLabel from "@material-ui/core/InputLabel";
+// import FormControl from "@material-ui/core/FormControl";
+// import List from "@material-ui/core/List";
+// import ListItem from "@material-ui/core/ListItem";
+// import ListItemText from "@material-ui/core/ListItemText";
+// import Button from "@material-ui/core/Button";
+// import { FixedSizeList } from "react-window";
 
 // import { range } from "moment-range";
 
@@ -71,42 +74,10 @@ class Calendar extends Component {
     selectedTimezone: null,
     timeZone: momentTZ.tz.names(),
     labelWidth: 0,
-    timeSelections: [
-      {
-        id: "timeSelections",
-        hourList: [
-          "00:00 - 00:30",
-          "00:30 - 01:00",
-          "01:30 - 02:00",
-          "02:30 - 03:00",
-          "03:30 - 04:00",
-          "04:30 - 05:00",
-          "05:30 - 06:00",
-          "06:30 - 07:00",
-          "07:30 - 08:00",
-          "08:30 - 09:00",
-          "09:30 - 10:00",
-          "10:30 - 11:00",
-          "11:30 - 12:00",
-          "12:30 - 13:00",
-          "13:30 - 14:00",
-          "14:30 - 15:00",
-          "15:30 - 16:00",
-          "16:30 - 17:00",
-          "17:30 - 18:00",
-          "18:30 - 19:00",
-          "19:30 - 20:00",
-          "20:30 - 21:00",
-          "21:30 - 22:00",
-          "22:30 - 23:00",
-          "23:30 - 24:00"
-        ]
-      },
-      { id: "adsf", title: "If it will show the texts" },
-      { id: "afdsf", title: "Test succeed!" }
-    ],
     displayTimeSelection: false,
-    displayCalendarTable: false
+    displayCalendarTable: false,
+    displayForm: false,
+    formContainer: null
   };
 
   renderShowCurrentDay() {
@@ -339,6 +310,16 @@ class Calendar extends Component {
       }
     );
   };
+  onTimeClick = () =>{
+    this.setState(
+      {
+        displayForm: false
+      },
+      () => {
+        this.displayForm();
+      }
+    );
+  }
   onCalendarIconClick = () => {
     this.setState(
       {
@@ -371,6 +352,11 @@ class Calendar extends Component {
     let timeSelections = null;
     if (this.state.displayTimeSelection) {
       timeSelections = <CalendarStep />;
+    }
+
+    let formContainer = null;
+    if(this.state.formContainer) {
+      formContainer = <CalendarStepThree />;
     }
 
     let weekdayshortname = this.weekdayshort.map(day => {
@@ -429,7 +415,7 @@ class Calendar extends Component {
               <span
                 onClick={e => {
                   this.onCalendarIconClick();
-                }}
+                }} className="icon-click"
               >
                 <FontAwesomeIcon icon="calendar-alt" />
               </span>
@@ -438,10 +424,13 @@ class Calendar extends Component {
               {this.renderShowCurrentHour()}
             </Col>
             <Col xs lg="2" className="clock-icon">
-              <FontAwesomeIcon icon="clock" />
+              <span className="icon-click">
+                <FontAwesomeIcon icon="clock" />  
+              </span> 
             </Col>
           </Row>
         </div>
+        {formContainer}
         {timeSelections}
         <Row>
           <Col className="calendar-column">
