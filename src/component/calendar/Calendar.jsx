@@ -10,7 +10,6 @@ import CalendarStep from "./CalendarStep";
 //Material UI
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import Slide from '@material-ui/core/Slide';
 import Select from "@material-ui/core/Select";
 // import FilledInput from "@material-ui/core/FilledInput";
 // import InputLabel from "@material-ui/core/InputLabel";
@@ -38,8 +37,6 @@ import {
   faCaretRight
 } from "@fortawesome/free-solid-svg-icons";
 import { MenuList, MenuItem } from "@material-ui/core";
-
-import { Scrollbars } from "react-custom-scrollbars";
 
 library.add(fab, faCalendarAlt, faClock, faCaretLeft, faCaretRight);
 
@@ -76,7 +73,8 @@ class Calendar extends Component {
     displayCalendarTable: false,
     displayForm: false,
     formContainer: null,
-    shown: true
+    shown: true,
+    timeShown: true
   };
 
   renderShowCurrentDay() {
@@ -310,16 +308,6 @@ class Calendar extends Component {
     );
   };
   
-  onCalendarIconClick = () => {
-    this.setState(
-      {
-        displayCalendarTable: false
-      },
-      () => {
-        this.displayCalendarTable();
-      }
-    );
-  };
   displayCalendarTable = () => {
     this.setState({
       displayCalendarTable: !this.state.displayCalendarTable
@@ -342,18 +330,34 @@ class Calendar extends Component {
     });
   }
 
+  toggleTime(){
+    this.setState({
+      timeShown: !this.state.timeShown
+    });
+  }
+
   render() {
     const { classes } = this.props;
 
+    let timeSelections = null;
     var shown = {
-			display: this.state.shown ? "block" : "none"
+      display: this.state.shown ? "block" : "none"
 		};
 		
 		var hidden = {
-			display: this.state.shown ? "none" : "block"
-		}
-
-    let timeSelections = null;
+      display: this.state.timeShown ? "block" : "none",
+      display: this.state.shown ? "none" : "block"
+    }
+    
+    var timeShown = {
+      display: this.state.timeShown ? "block" : "none"
+		};
+		
+		var timeHidden = {
+      display: this.state.shown ? "block" : "none",
+      display: this.state.timeShown ? "none" : "block"
+    }
+    
     if (this.state.displayTimeSelection) {
       timeSelections = <CalendarStep />;
     }
@@ -391,7 +395,7 @@ class Calendar extends Component {
       } else {
         rows.push(cells);
         cells = [];
-        cells.push(row);
+        cells.push(row); 
       }
       if (i === totalSlots.length - 1) {
         /* let insertRow = cells.slice(); */
@@ -423,14 +427,88 @@ class Calendar extends Component {
               {this.renderShowCurrentHour()}
             </Col>
             <Col xs lg="2" className="clock-icon">
-              <span className="icon-click">
+              <span 
+                onClick={() => {
+                  this.toggleTime()
+                }} className="icon-click">
                 <FontAwesomeIcon icon="clock" />  
               </span> 
             </Col>
           </Row>
         </div>
-        <Row>
-          <Col className="calendar-column" style={ shown }>
+        <Row className="desktop-view">
+          <div className="calendar-column" style= { shown }>
+          <div className="tail-datetime-calendar">
+              <div className="calendar-navi">
+                <span
+                  onClick={e => {
+                    this.onPrev();
+                  }}
+                  className="calendar-button button-prev"
+                >
+                  <FontAwesomeIcon icon="caret-left" />
+                </span>
+                {!this.state.showMonthTable && !this.state.showYearEditor && (
+                  <span id="month-label"
+                    className="calendar-label calendar-label-left"
+                    onClick={e => {
+                      this.showMonth();
+                    }}
+                  >
+                    {this.month()},
+                  </span>
+                )}
+                <span id="year-label"
+                  className="calendar-label calendar-label-right"
+                  onClick={e => {
+                    this.showYearEditor();
+                  }}
+                >
+                  {this.year()}
+                </span>
+
+                <span
+                  onClick={e => {
+                    this.onNext();
+                  }}
+                  className="calendar-button button-next"
+                >
+                  <FontAwesomeIcon icon="caret-right" />
+                </span>
+              </div>
+              <div className="calendar-date">
+                {this.state.showYearNav && (
+                  <this.YearTable props={this.year()} />
+                )}
+                {this.state.showMonthTable && (
+                  <this.MonthList data={moment.months()} />
+                )}
+              </div>
+
+              {this.state.showCalendarTable && (
+                <div className="calendar-date">
+                  <table className="calendar-day">
+                    <thead>
+                      <tr>{weekdayshortname}</tr>
+                    </thead>
+                    <tbody>{daysinmonth}</tbody>
+                  </table>
+                </div>
+              )}
+            </div>
+          </div>
+          <div style = { hidden } >
+            {/* this is not to display the calendar table */}
+          </div>
+          <div style = { timeShown }>
+            {timeSelections}
+          </div>
+          <div style = { timeHidden }>
+            {/* this is not to display the time table */}
+          </div>
+        </Row>
+        <Row className="mobile-view">
+          <div className="calendar-column" style={ shown }>
             <div className="tail-datetime-calendar">
               <div className="calendar-navi">
                 <span
@@ -489,16 +567,14 @@ class Calendar extends Component {
                 </div>
               )}
             </div>
-          </Col>
-          <Col className="calendar-column" style={ hidden }>
-            {/* none */} 
-          </Col>
-          <Col style={ timeShown }>
+          </div>
+          <div style={ hidden }>
+          </div>
+          <div className="time-column"  style={ timeShown }>
           {timeSelections}
-          </Col>
-          <Col style={ timeHidden }>
-          {/* none */}
-          </Col>
+          </div>
+          <div style={ timeHidden }> 
+          </div>
           {/* <Col>
                   <div className="col filter-column">
                   <FormControl variant="filled" className={classes.formControl}>

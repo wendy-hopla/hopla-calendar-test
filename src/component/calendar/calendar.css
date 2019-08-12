@@ -41,7 +41,7 @@ body {
   color: rgba(255, 255, 255, 0.54);
 }
 .body-section {
-  width: 400px;
+  width: 640px;
   text-align: center;
   overflow: hidden;
 }
@@ -56,11 +56,15 @@ body {
 .calendar-column {
   display: block;
   margin-top: 16px;
+  width: 100%;
   /* padding: 24px 24px 24px 37px; */
+}
+.time-column {
+  width: 100%;
 }
 .filter-column {
   display: block;
-  padding: 24px 40px 24px 24px;
+  padding: 16px 0 24px 32px
 }
 .calendar-view {
   display: block;
@@ -94,6 +98,8 @@ li.hour-row :hover {
   background-color: #ebebeb;
   color: #000;
   font-weight: 500;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 /* .hour-row :hover{
   cursor:pointer;
@@ -388,8 +394,70 @@ li.hour-row :hover {
 .icon-click{
   cursor: pointer;
 }
+.desktop-view{
+  display: flex;
+}
+.mobile-view{
+  display: none;
+}
+.timezone-column{
+  width: 50vw;
+}
+.form-column{
+  width: 50vw;
+  padding-right: 32px;
+  padding-top: 8px;
+}
+.makeStyles-container-134{
+  margin-right: 32px !important;
+}
+.MuiFormControl-marginNormal{
+  margin-top: 8px !important;
+}
+.MuiButton-containedPrimary{
+  margin-left: 8px !important;
+  margin-right: 8px !important;
+  margin-top: 24px !important;
+}
+#month-label .tail-datetime-calendar .calendar-navi span{
+  width: 50% !important;
+}
+#year-label .tail-datetime-calendar .calendar-navi span{
+  width: 50% !important;
+}
 
 /* @start of media queries */
+@media (max-width: 700px){
+  .body-section{
+    width: 100vw;
+    text-align: center;
+  }
+  .mobile-time{
+    margin-left: 8px;
+    margin-right: 8px;
+  }
+  .desktop-view{
+    display: none;
+  }
+  .mobile-view{
+    display: block;
+  }
+  .mobile-view-time, .mobile-view-form{
+    width: 100vw;
+    margin-left: 6px;
+  }
+  .filter-column{
+    padding: 0 0;
+  }
+  .MuiButton-containedPrimary{
+    margin-right: 8px !important;
+    margin-left: 8px !important;
+    margin-top: 24px !important;
+  }
+  .MuiFormControl-marginNormal{
+    margin-top: 8px !important;
+  }
+}
 @media (min-width: 320px) {
   .tail-datetime-calendar .calendar-date table tbody tr > *::after {
     left: 7px !important;
@@ -432,7 +500,7 @@ li.hour-row :hover {
   }
   .calendar-column {
     margin-top: 8px;
-    padding: 24px 24px 24px 24px;
+    padding: 24px 0 24px 0;
   }
 }
 @media (max-width: 767px) {
@@ -473,16 +541,16 @@ li.hour-row :hover {
     -webkit-border-radius: 50%;
   }
   .tail-datetime-calendar .calendar-navi span.button-next {
-    padding-right: 16px !important;
+    padding-right: 40px !important;
   }
   .tail-datetime-calendar .calendar-navi span.button-prev {
-    padding-left: 16px !important;
+    padding-left: 40px !important;
   }
 }
 @media (min-width: 1024px) {
   .tail-datetime-calendar .calendar-date table tbody tr > *::after {
     top: 3px;
-    left: 13px !important;
+    left: 33px !important;
     width: 29px;
     height: 29px;
     content: "";

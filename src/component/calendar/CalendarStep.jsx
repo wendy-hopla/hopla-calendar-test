@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 // import ReactDOM from 'react-dom';
-import moment from "moment";
 import momentTZ from "moment-timezone";
 import "./calendar.css";
 
@@ -14,8 +13,6 @@ import Select from "@material-ui/core/Select";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import Button from "@material-ui/core/Button";
-import { FixedSizeList } from "react-window";
 
 // import { range } from "moment-range";
 //Import Other Components
@@ -27,7 +24,6 @@ import { Col } from "react-bootstrap";
 
 //FontAwesome
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import {
   faCalendarAlt,
@@ -121,57 +117,104 @@ class CalendarStep extends Component {
     }
 
     return(
-      <Col >
-      {formContainer}
-        <div className="col filter-column">
-          <FormControl variant="filled">
-            <InputLabel>Timezone</InputLabel>
-            <Select
-              value={this.state.timeZone}
-              onChange={this.handleChange("timeZone")}
-              input={
-                <FilledInput
-                  placeholder="GMT+2 (South Africa)"
-                  name="timeZone"
-                  id="filled-timeZone-simple"
-                />
-              }
-            >
-              <MenuItem>GMT+2 (South Africa)</MenuItem>
-              {this.state.timeZone.map(data => (
-                <MenuItem key={data} className="time-list">
-                  <span>{data}</span>
-                  <br />
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <List className="hour">
-            <Scrollbars>
-              {this.state.hourList.map(data => (
-                <ListItem key={data} className="hour-row">
-                  <ListItemText className="hour-item">
-                    <span 
-                    onClick={e => {
-                      this.onTimeClick(e);
-                    }}
-                    >{data}
-                    </span>
-                  </ListItemText>
-                </ListItem>
-              ))}
-              {/* <HourList hourList={hourList} /> */}
-            </Scrollbars>
-          </List>
-          <Button
-            variant="contained"
-            color="primary"
-            className="button-primary"
-          >
-            BOOK
-          </Button>
+      <section>
+        <Row className="desktop-view">
+          <Col className="timezone-column">
+          <div className="col filter-column">
+            <FormControl variant="filled">
+              <InputLabel>Timezone</InputLabel>
+              <Select
+                value={this.state.timeZone}
+                onChange={this.handleChange("timeZone")}
+                input={
+                  <FilledInput
+                    placeholder="GMT+2 (South Africa)"
+                    name="timeZone"
+                    id="filled-timeZone-simple"
+                  />
+                }
+              >
+                <MenuItem>GMT+2 (South Africa)</MenuItem>
+                {this.state.timeZone.map(data => (
+                  <MenuItem key={data} className="time-list">
+                    <span>{data}</span>
+                    <br />
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <List className="hour">
+              <Scrollbars>
+                {this.state.hourList.map(data => (
+                  <ListItem key={data} className="hour-row">
+                    <ListItemText className="hour-item">
+                      <span 
+                      onClick={e => {
+                        this.onTimeClick(e);
+                      }}
+                      >{data}
+                      </span>
+                    </ListItemText>
+                  </ListItem>
+                ))}
+                {/* <HourList hourList={hourList} /> */}
+              </Scrollbars>
+            </List>
+          </div>
+          </Col>
+          <Col className="form-column">
+          {formContainer}
+          </Col>
+        </Row>
+        <Row className="mobile-view mobile-time">
+        <div className="mobile-view-time">
+          <div className="col filter-column">
+            <FormControl variant="filled">
+              <InputLabel>Timezone</InputLabel>
+              <Select
+                value={this.state.timeZone}
+                onChange={this.handleChange("timeZone")}
+                input={
+                  <FilledInput
+                    placeholder="GMT+2 (South Africa)"
+                    name="timeZone"
+                    id="filled-timeZone-simple"
+                  />
+                }
+              >
+                <MenuItem>GMT+2 (South Africa)</MenuItem>
+                {this.state.timeZone.map(data => (
+                  <MenuItem key={data} className="time-list">
+                    <span>{data}</span>
+                    <br />
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <List className="hour">
+              <Scrollbars>
+                {this.state.hourList.map(data => (
+                  <ListItem key={data} className="hour-row">
+                    <ListItemText className="hour-item">
+                      <span 
+                      onClick={e => {
+                        this.onTimeClick(e);
+                      }}
+                      >{data}
+                      </span>
+                    </ListItemText>
+                  </ListItem>
+                ))}
+                {/* <HourList hourList={hourList} /> */}
+              </Scrollbars>
+            </List>
+          </div>
         </div>
-      </Col>
+        <div className="mobile-view-form">
+          {formContainer}
+        </div>
+      </Row>
+      </section>
     );
   }
 }
