@@ -402,6 +402,10 @@ li.hour-row :hover {
 }
 .timezone-column{
   width: 50vw;
+  flex: 0.7;
+}
+.makeStyles-container-134{
+  width: 70%;
 }
 .form-column{
   width: 50vw;
@@ -427,6 +431,11 @@ li.hour-row :hover {
 }
 
 /* @start of media queries */
+@media (max-width: 1600px){
+  .makeStyles-container-134{
+    width: 100%;
+  }
+}
 @media (max-width: 700px){
   .body-section{
     width: 100vw;
@@ -595,7 +604,7 @@ li.hour-row :hover {
 @media (min-width: 1440px) {
   .tail-datetime-calendar .calendar-date table tbody tr > *::after {
     top: 3px;
-    left: 13px !important;
+    left: 34px !important;
     width: 29px;
     height: 29px;
     content: "";
@@ -608,10 +617,10 @@ li.hour-row :hover {
     -webkit-border-radius: 50%;
   }
   .tail-datetime-calendar .calendar-navi span.button-next {
-    padding-right: 18px !important;
+    padding-right: 40px !important;
   }
   .tail-datetime-calendar .calendar-navi span.button-prev {
-    padding-left: 18px !important;
+    padding-left: 40px !important;
   }
 }
 @media (min-width: 2560px) {
