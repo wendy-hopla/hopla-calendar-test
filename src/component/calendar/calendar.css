@@ -407,6 +407,9 @@ li.hour-row :hover {
 .makeStyles-container-134{
   width: 70%;
 }
+.jss134{
+  width: 70%;
+}
 .form-column{
   width: 50vw;
   padding-right: 32px;
@@ -433,6 +436,9 @@ li.hour-row :hover {
 /* @start of media queries */
 @media (max-width: 1600px){
   .makeStyles-container-134{
+    width: 100%;
+  }
+  .jss134{
     width: 100%;
   }
 }
