@@ -11,16 +11,6 @@ import CalendarStep from "./CalendarStep";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Select from "@material-ui/core/Select";
-// import FilledInput from "@material-ui/core/FilledInput";
-// import InputLabel from "@material-ui/core/InputLabel";
-// import FormControl from "@material-ui/core/FormControl";
-// import List from "@material-ui/core/List";
-// import ListItem from "@material-ui/core/ListItem";
-// import ListItemText from "@material-ui/core/ListItemText";
-// import Button from "@material-ui/core/Button";
-// import { FixedSizeList } from "react-window";
-
-// import { range } from "moment-range";
 
 //Bootstrap Grid
 import { Row } from "react-bootstrap";
@@ -299,15 +289,14 @@ class Calendar extends Component {
     this.setState(
       {
         selectedDay: d,
-        displayTimeSelection: false
+        // displayTimeSelection: false
       },
       () => {
         console.log("SELECTED DAY: ", this.state.selectedDay);
-        this.displayTimeSelection();
+        // this.displayTimeSelection();
       }
     );
   };
-  
   displayCalendarTable = () => {
     this.setState({
       displayCalendarTable: !this.state.displayCalendarTable
@@ -334,6 +323,11 @@ class Calendar extends Component {
     this.setState({
       timeShown: !this.state.timeShown
     });
+  }
+
+  continue = e => {
+    // e.preventDefault();
+    this.props.nextStep();
   }
 
   render() {
@@ -378,6 +372,7 @@ class Calendar extends Component {
           <span
             onClick={e => {
               this.onDayClick(e, d);
+              this.continue();
             }}
           >
             {d}

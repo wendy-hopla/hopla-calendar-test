@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import ReactDOM from 'react-dom';
+import moment from "moment";
 import momentTZ from "moment-timezone";
 import "./calendar.css";
 
@@ -17,6 +17,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 // import { range } from "moment-range";
 //Import Other Components
 import CalendarStepThree from "./CalendarStepThree";
+import Calendar from "./Calendar";
 
 //Bootstrap Grid
 import { Row } from "react-bootstrap";
@@ -25,6 +26,7 @@ import { Col } from "react-bootstrap";
 //FontAwesome
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fab } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCalendarAlt,
   faClock,
@@ -54,6 +56,13 @@ const styles = theme => ({
 
 class CalendarStep extends Component {
   state = {
+    dateObject: moment(),
+    currentDay: null,
+    showCalendarTable: true,
+    showMonthTable: false,
+    allmonths: moment.months(),
+    showYearNav: false,
+    selectedDay: null,
     selectedTimezone: null,
     timeZone: momentTZ.tz.names(),
     hourList: [
@@ -83,9 +92,24 @@ class CalendarStep extends Component {
       "22:30 - 23:00",
       "23:30 - 24:00"
     ],
-    displayForm: false,
-    formContainer: null
+    displayCalendar: false,
+    calendarContainer: null,
+    shown: true,
+    timeShown: true
   };
+
+  renderShowCurrentDay() {
+    return this.state.dateObject.format("dddd");
+  }
+  renderShowCurrentMonthYear() {
+    return this.state.dateObject.format("MMMM, YYYY");
+  }
+  renderShowCurrentDayNum() {
+    return this.state.dateObject.format("Do");
+  }
+  renderShowCurrentHour() {
+    return this.state.dateObject.format("HH:mm");
+  }
 
   handleChange = field => e => {
     this.setState({ [field]: e.target.value });
@@ -102,24 +126,86 @@ class CalendarStep extends Component {
     );
   }
 
-  displayForm = () => {
+  displayCalendar = () => {
     this.setState({
-      displayForm: !this.state.displayForm
+      displayCalendar: !this.state.displayCalendar
     });
+  }
+
+  toggleCalendar(){
+    this.setState({
+      shown: !this.state.shown
+    });
+  }
+
+  toggleTime(){
+    this.setState({
+      timeShown: !this.state.timeShown
+    });
+  }
+
+  continue = e => {
+    // e.preventDefault();
+    this.props.nextStep();
   }
 
   render() {
     const hourList = null;
 
-    let formContainer = null;
-    if(this.state.displayForm) {
-      formContainer = <CalendarStepThree />;
+    let calendarContainer = null;
+    if(this.state.displayCalendar) {
+      calendarContainer = <Calendar />;
+    }
+
+    var shown = {
+      display: this.state.shown ? "block" : "none"
+		};
+		
+		var hidden = {
+      display: this.state.timeShown ? "block" : "none",
+      display: this.state.shown ? "none" : "block"
+    }
+    
+    var timeShown = {
+      display: this.state.timeShown ? "block" : "none"
+		};
+		
+		var timeHidden = {
+      display: this.state.shown ? "block" : "none",
+      display: this.state.timeShown ? "none" : "block"
     }
 
     return(
-      <section>
+      <section className="body-section">
+        <div className="top-header">{this.renderShowCurrentDay()}</div>
+        <div className="cover-header">
+          <div className="month-year">{this.renderShowCurrentMonthYear()}</div>
+          <div className="day-num">{this.renderShowCurrentDayNum()}</div>
+          <Row>
+            <Col xs lg="2" className="calendar-icon">
+              <span
+                onClick={() => {
+                  this.toggleCalendar()
+                }} className="icon-click"
+              >
+                <FontAwesomeIcon icon="calendar-alt" />
+              </span>
+            </Col>
+            <Col xs lg="8" className="hour-minute-range">
+              {this.renderShowCurrentHour()}
+            </Col>
+            <Col xs lg="2" className="clock-icon">
+              <span 
+                onClick={() => {
+                  this.displayCalendar();
+                }} className="icon-click">
+                <FontAwesomeIcon icon="clock" />  
+              </span> 
+            </Col>
+          </Row>
+        </div>
         <Row className="desktop-view">
-          <Col className="timezone-column">
+          <div className="timezone-column" style={ shown }>
           <div className="col filter-column">
             <FormControl variant="filled">
               <InputLabel>Timezone</InputLabel>
@@ -150,7 +236,8 @@ class CalendarStep extends Component {
                     <ListItemText className="hour-item">
                       <span 
                       onClick={e => {
-                        this.onTimeClick(e);
+                        // this.onTimeClick(e);
+                        this.continue();
                       }}
                       >{data}
                       </span>
@@ -161,13 +248,14 @@ class CalendarStep extends Component {
               </Scrollbars>
             </List>
           </div>
-          </Col>
-          <Col className="form-column">
+          </div>
+          <div style={ hidden }></div>
+          {/* <Col className="form-column">
           {formContainer}
-          </Col>
+          </Col> */}
         </Row>
         <Row className="mobile-view mobile-time">
-        <div className="mobile-view-time">
+        <div className="mobile-view-time" style={ timeShown }>
           <div className="col filter-column">
             <FormControl variant="filled">
               <InputLabel>Timezone</InputLabel>
@@ -198,7 +286,8 @@ class CalendarStep extends Component {
                     <ListItemText className="hour-item">
                       <span 
                       onClick={e => {
-                        this.onTimeClick(e);
+                        // this.onTimeClick(e);
+                        this.continue();
                       }}
                       >{data}
                       </span>
@@ -210,9 +299,10 @@ class CalendarStep extends Component {
             </List>
           </div>
         </div>
-        <div className="mobile-view-form">
+        <div style={ timeHidden }></div>
+        {/* <div className="mobile-view-form">
           {formContainer}
-        </div>
+        </div> */}
       </Row>
       </section>
     );

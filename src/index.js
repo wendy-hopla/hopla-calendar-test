@@ -5,12 +5,13 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 
 import Calendar from './component/calendar/Calendar'
+import WidgetContainer from './component/calendar/WidgetContainer'
 
 function App() {
   return (
     <div className="calendar-container">
       <div className="Calendar">
-        <Calendar />
+        <WidgetContainer />
     </div>
     </div>
   );
