@@ -64,7 +64,7 @@ body {
 }
 .filter-column {
   display: block;
-  padding: 16px 0 24px 32px
+  padding: 24px 0 24px 32px;
 }
 .calendar-view {
   display: block;
@@ -391,85 +391,94 @@ li.hour-row :hover {
 .MuiFormControl-root {
   width: 100%;
 }
-.icon-click{
+.icon-click {
   cursor: pointer;
 }
-.desktop-view{
+.desktop-view {
   display: flex;
+  transition: 1s;
 }
-.mobile-view{
+.mobile-view {
   display: none;
 }
-.timezone-column{
-  width: 50vw;
-  flex: 0.7;
+.timezone-column {
+  width: 100vw;
+  flex: 1;
+  margin-right: 28px;
+  transition: opacity 300ms ease-in;
 }
-.makeStyles-container-134{
+.makeStyles-container-134 {
   width: 70%;
 }
-.jss134{
+.jss134 {
   width: 70%;
 }
-.form-column{
+form {
+  margin-left: 14px;
+  margin-right: 14px;
+  margin-top: 24px;
+}
+.form-column {
   width: 50vw;
   padding-right: 32px;
   padding-top: 8px;
 }
-.makeStyles-container-134{
+.makeStyles-container-134 {
   margin-right: 32px !important;
 }
-.MuiFormControl-marginNormal{
+.MuiFormControl-marginNormal {
   margin-top: 8px !important;
 }
-.MuiButton-containedPrimary{
-  margin-left: 8px !important;
+.MuiButton-containedPrimary {
+  /* margin-left: 8px !important; */
   margin-right: 8px !important;
   margin-top: 24px !important;
 }
-#month-label .tail-datetime-calendar .calendar-navi span{
+#month-label .tail-datetime-calendar .calendar-navi span {
   width: 50% !important;
 }
-#year-label .tail-datetime-calendar .calendar-navi span{
+#year-label .tail-datetime-calendar .calendar-navi span {
   width: 50% !important;
 }
 
 /* @start of media queries */
-@media (max-width: 1600px){
-  .makeStyles-container-134{
+@media (max-width: 1600px) {
+  .makeStyles-container-134 {
     width: 100%;
   }
-  .jss134{
+  .jss134 {
     width: 100%;
   }
 }
-@media (max-width: 700px){
-  .body-section{
+@media (max-width: 700px) {
+  .body-section {
     width: 100vw;
     text-align: center;
   }
-  .mobile-time{
+  .mobile-time {
     margin-left: 8px;
     margin-right: 8px;
   }
-  .desktop-view{
+  .desktop-view {
     display: none;
   }
-  .mobile-view{
+  .mobile-view {
     display: block;
   }
-  .mobile-view-time, .mobile-view-form{
+  .mobile-view-time,
+  .mobile-view-form {
     width: 100vw;
     margin-left: 6px;
   }
-  .filter-column{
+  .filter-column {
     padding: 0 0;
   }
-  .MuiButton-containedPrimary{
+  .MuiButton-containedPrimary {
     margin-right: 8px !important;
     margin-left: 8px !important;
     margin-top: 24px !important;
   }
-  .MuiFormControl-marginNormal{
+  .MuiFormControl-marginNormal {
     margin-top: 8px !important;
   }
 }

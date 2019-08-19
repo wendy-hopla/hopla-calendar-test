@@ -1,22 +1,11 @@
 import React, { Component } from "react";
 // import ReactDOM from 'react-dom';
-import moment from "moment";
-import momentTZ from "moment-timezone";
 import "./calendar.css";
 
 //Import Other Components
 import CalendarStep from "./CalendarStep";
 import CalendarStepThree from "./CalendarStepThree";
 import Calendar from "./Calendar";
-
-//Material UI
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import Select from "@material-ui/core/Select";
-
-//Bootstrap Grid
-import { Row } from "react-bootstrap";
-import { Col } from "react-bootstrap";
 
 //FontAwesome
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -28,7 +17,6 @@ import {
   faCaretLeft,
   faCaretRight
 } from "@fortawesome/free-solid-svg-icons";
-import { MenuList, MenuItem } from "@material-ui/core";
 
 library.add(fab, faCalendarAlt, faClock, faCaretLeft, faCaretRight);
 
@@ -47,49 +35,67 @@ const styles = theme => ({
   }
 });
 
-export class WidgetContainer extends Component{
-    state = {
-        step: 1
-    }
+export class WidgetContainer extends Component {
+  state = {
+    step: 1,
+    calendarContainer: false,
+    clockContainer: false
+  };
 
-    nextStep = () => {
-        const { step } = this.state;
-        this.setState({
-          step: step + 1
-        });
-      }
-    
-    prevStep = () => {
+  nextStep = () => {
     const { step } = this.state;
     this.setState({
-        step: step - 1
+      step: step + 1
     });
+  };
+
+  prevStep = () => {
+    const { step } = this.state;
+    this.setState({
+      step: step - 1
+    });
+  };
+
+  displayCalendars = () => {
+    this.setState({
+      calendarContainer: !this.state.calendarContainer
+    });
+  };
+
+  displayClocks = () => {
+    this.setState({
+      clockContainer: !this.state.clockContainer
+    });
+  };
+
+  render() {
+    const { step } = this.state;
+    const { calendarContainer } = this.state;
+    const { clockContainer } = this.state;
+
+    switch (step) {
+      case 1:
+        return <Calendar nextStep={this.nextStep} />;
+      case 2:
+        return <CalendarStep nextStep={this.nextStep} />;
+      case 3:
+        return <CalendarStepThree />;
     }
 
-    render () {
-        const { step } = this.state;
-        
-
-        switch(step){
-            case 1: 
-            return (
-                <Calendar
-                    nextStep={this.nextStep}
-                />
-            )
-            case 2: 
-            return (
-                <CalendarStep
-                    nextStep={this.nextStep}
-                />
-            )
-            case 3:
-            return (
-                <CalendarStepThree
-                />
-            )
-        } 
+    switch (calendarContainer) {
+      case 1:
+        return <Calendar displayCalendars={this.displayCalendars} />;
+      case 2:
+        return;
     }
+
+    switch (clockContainer) {
+      case 1:
+        return <CalendarStep displayClocks={this.displayClocks} />;
+      case 2:
+        return;
+    }
+  }
 }
 
-export default WidgetContainer
+export default WidgetContainer;

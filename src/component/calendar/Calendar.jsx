@@ -312,22 +312,29 @@ class Calendar extends Component {
 
   calendarTable = ({ show }) => {};
 
-  toggleCalendar(){
+  toggleCalendar() {
     this.setState({
       shown: !this.state.shown
     });
   }
 
-  toggleTime(){
+  toggleTime() {
     this.setState({
       timeShown: !this.state.timeShown
     });
   }
 
   continue = e => {
-    // e.preventDefault();
     this.props.nextStep();
-  }
+  };
+
+  calendar = e => {
+    this.props.displayCalendars();
+  };
+
+  clock = e => {
+    this.props.displayClocks();
+  };
 
   render() {
     const { classes } = this.props;
@@ -335,22 +342,22 @@ class Calendar extends Component {
     let timeSelections = null;
     var shown = {
       display: this.state.shown ? "block" : "none"
-		};
-		
-		var hidden = {
+    };
+
+    var hidden = {
       display: this.state.timeShown ? "block" : "none",
       display: this.state.shown ? "none" : "block"
-    }
-    
+    };
+
     var timeShown = {
       display: this.state.timeShown ? "block" : "none"
-		};
-		
-		var timeHidden = {
+    };
+
+    var timeHidden = {
       display: this.state.shown ? "block" : "none",
       display: this.state.timeShown ? "none" : "block"
-    }
-    
+    };
+
     if (this.state.displayTimeSelection) {
       timeSelections = <CalendarStep />;
     }
@@ -389,7 +396,7 @@ class Calendar extends Component {
       } else {
         rows.push(cells);
         cells = [];
-        cells.push(row); 
+        cells.push(row);
       }
       if (i === totalSlots.length - 1) {
         /* let insertRow = cells.slice(); */
@@ -403,7 +410,7 @@ class Calendar extends Component {
 
     return (
       <section className="body-section">
-        { timeSelections }
+        {timeSelections}
         <div className="top-header">{this.renderShowCurrentDay()}</div>
         <div className="cover-header">
           <div className="month-year">{this.renderShowCurrentMonthYear()}</div>
@@ -411,9 +418,10 @@ class Calendar extends Component {
           <Row>
             <Col xs lg="2" className="calendar-icon">
               <span
-                onClick={() => {
-                  this.toggleCalendar()
-                }} className="icon-click"
+                onClick={e => {
+                  this.calendar();
+                }}
+                className="icon-click"
               >
                 <FontAwesomeIcon icon="calendar-alt" />
               </span>
@@ -422,18 +430,20 @@ class Calendar extends Component {
               {this.renderShowCurrentHour()}
             </Col>
             <Col xs lg="2" className="clock-icon">
-              <span 
-                onClick={() => {
-                  this.displayTimeSelection()
-                }} className="icon-click">
-                <FontAwesomeIcon icon="clock" />  
-              </span> 
+              <span
+                onClick={e => {
+                  this.clock();
+                }}
+                className="icon-click"
+              >
+                <FontAwesomeIcon icon="clock" />
+              </span>
             </Col>
           </Row>
         </div>
         <Row className="desktop-view">
-          <div className="calendar-column" style= { shown }>
-          <div className="tail-datetime-calendar">
+          <div className="calendar-column" style={shown}>
+            <div className="tail-datetime-calendar">
               <div className="calendar-navi">
                 <span
                   onClick={e => {
@@ -444,7 +454,8 @@ class Calendar extends Component {
                   <FontAwesomeIcon icon="caret-left" />
                 </span>
                 {!this.state.showMonthTable && !this.state.showYearEditor && (
-                  <span id="month-label"
+                  <span
+                    id="month-label"
                     className="calendar-label calendar-label-left"
                     onClick={e => {
                       this.showMonth();
@@ -453,7 +464,8 @@ class Calendar extends Component {
                     {this.month()},
                   </span>
                 )}
-                <span id="year-label"
+                <span
+                  id="year-label"
                   className="calendar-label calendar-label-right"
                   onClick={e => {
                     this.showYearEditor();
@@ -492,12 +504,12 @@ class Calendar extends Component {
               )}
             </div>
           </div>
-          <div style = { hidden } >
+          <div style={hidden}>
             {/* this is not to display the calendar table */}
           </div>
         </Row>
         <Row className="mobile-view">
-          <div className="calendar-column" style={ shown }>
+          <div className="calendar-column" style={shown}>
             <div className="tail-datetime-calendar">
               <div className="calendar-navi">
                 <span
@@ -557,13 +569,11 @@ class Calendar extends Component {
               )}
             </div>
           </div>
-          <div style={ hidden }>
+          <div style={hidden} />
+          <div className="time-column" style={timeShown}>
+            {timeSelections}
           </div>
-          <div className="time-column"  style={ timeShown }>
-          {timeSelections}
-          </div>
-          <div style={ timeHidden }> 
-          </div>
+          <div style={timeHidden} />
           {/* <Col>
                   <div className="col filter-column">
                   <FormControl variant="filled" className={classes.formControl}>
