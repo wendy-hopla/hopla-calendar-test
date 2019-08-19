@@ -33,12 +33,16 @@ body {
   font-size: 24px;
 }
 .day-num {
-  margin-bottom: -16px;
+  margin-top: 16px;
+  margin-bottom: -8px;
   font-size: 80px;
 }
 .hour-minute-range {
   font-size: 24px;
   color: rgba(255, 255, 255, 0.54);
+  display: inline-block;
+  /* margin-left: 40%;
+  margin-right: 40%; */
 }
 .body-section {
   width: 640px;
@@ -48,10 +52,12 @@ body {
 .calendar-icon {
   text-align: left;
   margin-top: 5px;
+  display: inline-block;
 }
 .clock-icon {
   text-align: right;
   margin-top: 7px;
+  display: inline-block;
 }
 .calendar-column {
   display: block;
@@ -468,7 +474,7 @@ form {
   .mobile-view-time,
   .mobile-view-form {
     width: 100vw;
-    margin-left: 6px;
+    margin-left: -8px;
   }
   .filter-column {
     padding: 0 0;
@@ -658,6 +664,16 @@ form {
   }
   .tail-datetime-calendar .calendar-navi span.button-prev {
     padding-left: 83px !important;
+  }
+}
+@media (max-width: 768px) {
+  .body-section {
+    width: 100vw;
+    text-align: center;
+    overflow: hidden;
+  }
+  .calendar-column {
+    padding: 0 0;
   }
 }
 /* @end of media queries */

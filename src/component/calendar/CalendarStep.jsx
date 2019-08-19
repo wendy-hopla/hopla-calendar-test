@@ -16,7 +16,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 
 // import { range } from "moment-range";
 //Import Other Components
-import Calendar from "./Calendar";
+import WidgetContainer from "./WidgetContainer";
 
 //Bootstrap Grid
 import { Row } from "react-bootstrap";
@@ -125,18 +125,6 @@ class CalendarStep extends Component {
     );
   };
 
-  toggleCalendar() {
-    this.setState({
-      shown: !this.state.shown
-    });
-  }
-
-  toggleTime() {
-    this.setState({
-      timeShown: !this.state.timeShown
-    });
-  }
-
   continue = e => {
     // e.preventDefault();
     this.props.nextStep();
@@ -177,7 +165,7 @@ class CalendarStep extends Component {
     };
 
     if (this.state.calendarContainer) {
-      return <Calendar calendarContainer={this.calendarContainer} />;
+      return <WidgetContainer calendarContainer={this.calendarContainer} />;
     }
     if (this.state.clockContainer) {
       return <CalendarStep clockContainer={this.clockContainer} />;

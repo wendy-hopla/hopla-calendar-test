@@ -27,6 +27,7 @@ import {
   faCaretRight
 } from "@fortawesome/free-solid-svg-icons";
 import { MenuList, MenuItem } from "@material-ui/core";
+import WidgetContainer from "./WidgetContainer";
 
 library.add(fab, faCalendarAlt, faClock, faCaretLeft, faCaretRight);
 
@@ -399,7 +400,7 @@ class Calendar extends Component {
     }
 
     if (this.state.calendarContainer) {
-      return <Calendar calendarContainer={this.calendarContainer} />;
+      return <WidgetContainer calendarContainer={this.calendarContainer} />;
     }
 
     return (

@@ -14,7 +14,7 @@ import { Col } from "react-bootstrap";
 import clsx from "clsx";
 
 //Import Other Components
-import Calendar from "./Calendar";
+import WidgetContainer from "./WidgetContainer";
 import CalendarStep from "./CalendarStep";
 
 //FontAwesome
@@ -130,7 +130,7 @@ export class CalendarStepThree extends Component {
     }
 
     if (this.state.calendarContainer) {
-      return <Calendar calendarContainer={this.calendarContainer} />;
+      return <WidgetContainer calendarContainer={this.calendarContainer} />;
     }
 
     return (
