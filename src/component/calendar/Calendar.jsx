@@ -288,8 +288,7 @@ class Calendar extends Component {
   onDayClick = (e, d) => {
     this.setState(
       {
-        selectedDay: d,
-        // displayTimeSelection: false
+        selectedDay: d
       },
       () => {
         console.log("SELECTED DAY: ", this.state.selectedDay);
@@ -404,6 +403,7 @@ class Calendar extends Component {
 
     return (
       <section className="body-section">
+        { timeSelections }
         <div className="top-header">{this.renderShowCurrentDay()}</div>
         <div className="cover-header">
           <div className="month-year">{this.renderShowCurrentMonthYear()}</div>
@@ -424,7 +424,7 @@ class Calendar extends Component {
             <Col xs lg="2" className="clock-icon">
               <span 
                 onClick={() => {
-                  this.toggleTime()
+                  this.displayTimeSelection()
                 }} className="icon-click">
                 <FontAwesomeIcon icon="clock" />  
               </span> 
@@ -494,12 +494,6 @@ class Calendar extends Component {
           </div>
           <div style = { hidden } >
             {/* this is not to display the calendar table */}
-          </div>
-          <div style = { timeShown }>
-            {timeSelections}
-          </div>
-          <div style = { timeHidden }>
-            {/* this is not to display the time table */}
           </div>
         </Row>
         <Row className="mobile-view">
