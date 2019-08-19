@@ -91,8 +91,8 @@ class CalendarStep extends Component {
       "22:30 - 23:00",
       "23:30 - 24:00"
     ],
-    displayCalendar: false,
-    calendarContainer: null,
+    calendarContainer: false,
+    clockContainer: false,
     shown: true,
     timeShown: true
   };
@@ -125,12 +125,6 @@ class CalendarStep extends Component {
     );
   };
 
-  displayCalendar = () => {
-    this.setState({
-      displayCalendar: !this.state.displayCalendar
-    });
-  };
-
   toggleCalendar() {
     this.setState({
       shown: !this.state.shown
@@ -148,13 +142,21 @@ class CalendarStep extends Component {
     this.props.nextStep();
   };
 
+  calendarContainer = e => {
+    this.setState({
+      calendarContainer: !this.state.calendarContainer
+    });
+  };
+
+  clockContainer = e => {
+    this.setState({
+      clockContainer: !this.state.clockContainer
+    });
+  };
+
   render() {
     const hourList = null;
-
-    let calendarContainer;
-    if (this.state.displayCalendar) {
-      calendarContainer = <Calendar />;
-    }
+    const { calendarContainer } = this.state;
 
     var shown = {
       display: this.state.shown ? "block" : "none"
@@ -174,6 +176,13 @@ class CalendarStep extends Component {
       display: this.state.timeShown ? "none" : "block"
     };
 
+    if (this.state.calendarContainer) {
+      return <Calendar calendarContainer={this.calendarContainer} />;
+    }
+    if (this.state.clockContainer) {
+      return <CalendarStep clockContainer={this.clockContainer} />;
+    }
+
     return (
       <section className="body-section">
         <div className="top-header">{this.renderShowCurrentDay()}</div>
@@ -184,7 +193,7 @@ class CalendarStep extends Component {
             <Col xs lg="2" className="calendar-icon">
               <span
                 onClick={() => {
-                  this.displayCalendar();
+                  this.calendarContainer();
                 }}
                 className="icon-click"
               >
@@ -197,7 +206,7 @@ class CalendarStep extends Component {
             <Col xs lg="2" className="clock-icon">
               <span
                 onClick={() => {
-                  this.displayClock();
+                  this.clockContainer();
                 }}
                 className="icon-click"
               >

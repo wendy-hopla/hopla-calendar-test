@@ -59,8 +59,8 @@ class Calendar extends Component {
     selectedTimezone: null,
     timeZone: momentTZ.tz.names(),
     labelWidth: 0,
-    displayTimeSelection: false,
-    displayCalendarTable: false,
+    clockContainer: false,
+    calendarContainer: false,
     displayForm: false,
     formContainer: null,
     shown: true,
@@ -296,48 +296,34 @@ class Calendar extends Component {
       }
     );
   };
-  displayCalendarTable = () => {
-    this.setState({
-      displayCalendarTable: !this.state.displayCalendarTable
-    });
-  };
-  displayTimeSelection = () => {
-    this.setState({
-      displayTimeSelection: !this.state.displayTimeSelection
-    });
-  };
   handleChange = field => e => {
     this.setState({ [field]: e.target.value });
   };
-
-  calendarTable = ({ show }) => {};
-
-  toggleCalendar() {
-    this.setState({
-      shown: !this.state.shown
-    });
-  }
-
   toggleTime() {
     this.setState({
       timeShown: !this.state.timeShown
     });
   }
-
   continue = e => {
     this.props.nextStep();
   };
 
-  calendar = e => {
-    this.props.displayCalendars();
+  calendarContainer = e => {
+    this.setState({
+      calendarContainer: !this.state.calendarContainer
+    });
   };
 
-  clock = e => {
-    this.props.displayClocks();
+  clockContainer = e => {
+    this.setState({
+      clockContainer: !this.state.clockContainer
+    });
   };
 
   render() {
     const { classes } = this.props;
+    const { calendarContainer } = this.state;
+    const { clockContainer } = this.state;
 
     let timeSelections = null;
     var shown = {
@@ -408,6 +394,14 @@ class Calendar extends Component {
       return <tr>{d}</tr>;
     });
 
+    if (this.state.clockContainer) {
+      return <CalendarStep clockContainer={this.clockContainer} />;
+    }
+
+    if (this.state.calendarContainer) {
+      return <Calendar calendarContainer={this.calendarContainer} />;
+    }
+
     return (
       <section className="body-section">
         {timeSelections}
@@ -419,7 +413,7 @@ class Calendar extends Component {
             <Col xs lg="2" className="calendar-icon">
               <span
                 onClick={e => {
-                  this.calendar();
+                  this.calendarContainer();
                 }}
                 className="icon-click"
               >
@@ -432,7 +426,7 @@ class Calendar extends Component {
             <Col xs lg="2" className="clock-icon">
               <span
                 onClick={e => {
-                  this.clock();
+                  this.clockContainer();
                 }}
                 className="icon-click"
               >

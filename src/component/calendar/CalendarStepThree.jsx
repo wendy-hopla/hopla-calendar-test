@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
+import { makeStyles } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import moment from "moment";
 import momentTZ from "moment-timezone";
@@ -11,7 +11,11 @@ import { Row } from "react-bootstrap";
 import { Col } from "react-bootstrap";
 
 //Material UI
-import clsx from 'clsx';
+import clsx from "clsx";
+
+//Import Other Components
+import Calendar from "./Calendar";
+import CalendarStep from "./CalendarStep";
 
 //FontAwesome
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -42,23 +46,23 @@ const styles = theme => ({
 });
 
 const useStyles = makeStyles(theme => ({
-    container: {
-      display: 'flex',
-      flexWrap: 'wrap',
-    },
-    textField: {
-      marginLeft: theme.spacing(1),
-      marginRight: theme.spacing(1),
-    },
-    dense: {
-      marginTop: theme.spacing(2),
-    },
-    menu: {
-      width: 200,
-    },
-  }));
+  container: {
+    display: "flex",
+    flexWrap: "wrap"
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1)
+  },
+  dense: {
+    marginTop: theme.spacing(2)
+  },
+  menu: {
+    width: 200
+  }
+}));
 
-export class CalendarStepThree extends Component{
+export class CalendarStepThree extends Component {
   state = {
     dateObject: moment(),
     currentDay: null,
@@ -69,10 +73,12 @@ export class CalendarStepThree extends Component{
     selectedDay: null,
     selectedTimezone: null,
     timeZone: momentTZ.tz.names(),
-    name: '',
-    email: '',
-    comment: ''
-  }
+    name: "",
+    email: "",
+    comment: "",
+    calendarContainer: false,
+    clockContainer: false
+  };
 
   renderShowCurrentDay() {
     return this.state.dateObject.format("dddd");
@@ -86,10 +92,22 @@ export class CalendarStepThree extends Component{
   renderShowCurrentHour() {
     return this.state.dateObject.format("HH:mm");
   }
-  
-  render(){
-    const classes  = useStyles;
-    const { name, email, comment} = this.state;
+
+  calendarContainer = e => {
+    this.setState({
+      calendarContainer: !this.state.calendarContainer
+    });
+  };
+
+  clockContainer = e => {
+    this.setState({
+      clockContainer: !this.state.clockContainer
+    });
+  };
+
+  render() {
+    const classes = useStyles;
+    const { name, email, comment } = this.state;
     const values = {
       name,
       email,
@@ -101,10 +119,21 @@ export class CalendarStepThree extends Component{
       comment
     };
     const handleChange = name => event => {
-      setValues({ ...values, [name]: event.target.value });   
+      setValues({ ...values, [name]: event.target.value });
     };
     const formList = null;
-    return(
+    const { calendarContainer } = this.state;
+    const { clockContainer } = this.state;
+
+    if (this.state.clockContainer) {
+      return <CalendarStep clockContainer={this.clockContainer} />;
+    }
+
+    if (this.state.calendarContainer) {
+      return <Calendar calendarContainer={this.calendarContainer} />;
+    }
+
+    return (
       <section className="body-section">
         <div className="top-header">{this.renderShowCurrentDay()}</div>
         <div className="cover-header">
@@ -114,8 +143,9 @@ export class CalendarStepThree extends Component{
             <Col xs lg="2" className="calendar-icon">
               <span
                 onClick={() => {
-                  this.toggleCalendar()
-                }} className="icon-click"
+                  this.calendarContainer();
+                }}
+                className="icon-click"
               >
                 <FontAwesomeIcon icon="calendar-alt" />
               </span>
@@ -124,55 +154,62 @@ export class CalendarStepThree extends Component{
               {this.renderShowCurrentHour()}
             </Col>
             <Col xs lg="2" className="clock-icon">
-              <span 
+              <span
                 onClick={() => {
-                  this.toggleTime()
-                }} className="icon-click">
-                <FontAwesomeIcon icon="clock" />  
-              </span> 
+                  this.clockContainer();
+                }}
+                className="icon-click"
+              >
+                <FontAwesomeIcon icon="clock" />
+              </span>
             </Col>
           </Row>
         </div>
-        <form className={classes.container} desk-form noValidate autoComplete="off">
+        <form
+          className={classes.container}
+          desk-form
+          noValidate
+          autoComplete="off"
+        >
           <TextField
-              id="outlined-name"
-              label="Name"
-              className={classes.textField}
-              value={values.name}
-              onChange={handleChange('name')}
-              margin="normal"
-              variant="outlined"
+            id="outlined-name"
+            label="Name"
+            className={classes.textField}
+            value={values.name}
+            onChange={handleChange("name")}
+            margin="normal"
+            variant="outlined"
           />
           <TextField
-              id="outlined-name"
-              label="Email"
-              className={classes.textField}
-              value={values.email}
-              onChange={handleChange('email')}
-              margin="normal"
-              variant="outlined"
+            id="outlined-name"
+            label="Email"
+            className={classes.textField}
+            value={values.email}
+            onChange={handleChange("email")}
+            margin="normal"
+            variant="outlined"
           />
           <TextField
-              id="outlined-name"
-              label="Comment"
-              className={classes.textField}
-              value={values.comment}
-              onChange={handleChange('comment')}
-              margin="normal"
-              variant="outlined"
+            id="outlined-name"
+            label="Comment"
+            className={classes.textField}
+            value={values.comment}
+            onChange={handleChange("comment")}
+            margin="normal"
+            variant="outlined"
           />
           <Button
-          variant="contained"
-          color="primary"
-          className="button-primary"
-        >
-          BOOK
-        </Button>
-      </form>
+            variant="contained"
+            color="primary"
+            className="button-primary"
+          >
+            BOOK
+          </Button>
+        </form>
       </section>
-  );
+    );
   }
 }
 
-export default CalendarStepThree
-//name, email, comment 
+export default CalendarStepThree;
+//name, email, comment
