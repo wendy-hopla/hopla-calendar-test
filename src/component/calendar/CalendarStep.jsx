@@ -333,53 +333,53 @@ export class CalendarStep extends Component {
           </Col>
         </Row>
         <Row className="mobile-view mobile-time">
-          <Col className="mobile-view-time" style={shown}>
-            <div className="col filter-column-mobile">
-              <FormControl variant="filled">
-                <InputLabel>Timezone</InputLabel>
-                <Select
-                  value={this.state.timeZone}
-                  onChange={this.handleChange("timeZone")}
-                  hintText="GMT+2 (South Africa)"
-                  input={
-                    <FilledInput
-                      placeholder="GMT+2 (South Africa)"
-                      name="timeZone"
-                      id="filled-timeZone-simple"
-                    />
-                  }
-                >
-                  <MenuItem>GMT+2 (South Africa)</MenuItem>
-                  {this.state.timeZone.map(data => (
-                    <MenuItem key={data} className="time-list">
-                      <span>{data}</span>
-                      <br />
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-              <List className="hour">
-                <Scrollbars>
-                  {this.state.hourList.map(data => (
-                    <ListItem key={data} className="hour-row">
-                      <ListItemText className="hour-item">
-                        <span
-                        // onClick={e => {
-                        //   // this.onTimeClick(e);
-                        //   this.continue();
-                        // }}
-                        >
-                          {data}
-                        </span>
-                      </ListItemText>
-                    </ListItem>
-                  ))}
-                  {/* <HourList hourList={hourList} /> */}
-                </Scrollbars>
-              </List>
-            </div>
-          </Col>
-          <Col>
+          {/* <Col className="mobile-view-time" style={shown}> */}
+          <div className="col filter-column-mobile" style={shown}>
+            <FormControl variant="filled">
+              <InputLabel>Timezone</InputLabel>
+              <Select
+                value={this.state.timeZone}
+                onChange={this.handleChange("timeZone")}
+                hintText="GMT+2 (South Africa)"
+                input={
+                  <FilledInput
+                    placeholder="GMT+2 (South Africa)"
+                    name="timeZone"
+                    id="filled-timeZone-simple"
+                  />
+                }
+              >
+                <MenuItem>GMT+2 (South Africa)</MenuItem>
+                {this.state.timeZone.map(data => (
+                  <MenuItem key={data} className="time-list">
+                    <span>{data}</span>
+                    <br />
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <List className="hour">
+              <Scrollbars>
+                {this.state.hourList.map(data => (
+                  <ListItem key={data} className="hour-row">
+                    <ListItemText className="hour-item">
+                      <span
+                        onClick={e => {
+                          //   // this.onTimeClick(e);
+                          this.continue();
+                        }}
+                      >
+                        {data}
+                      </span>
+                    </ListItemText>
+                  </ListItem>
+                ))}
+                {/* <HourList hourList={hourList} /> */}
+              </Scrollbars>
+            </List>
+          </div>
+          {/* </Col> */}
+          {/* <Col>
             <form
               className={classes.container}
               desk-form
@@ -421,7 +421,7 @@ export class CalendarStep extends Component {
                 BOOK
               </Button>
             </form>
-          </Col>
+          </Col> */}
         </Row>
       </Container>
     );

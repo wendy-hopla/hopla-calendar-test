@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import Container from "@material-ui/core/Container";
 import moment from "moment";
 import momentTZ from "moment-timezone";
 import "./calendar.css";
@@ -134,7 +135,8 @@ export class CalendarStepThree extends Component {
     }
 
     return (
-      <section className="body-section">
+      // <section className="body-section">
+      <Container maxWidth="sm">
         <div className="top-header">{this.renderShowCurrentDay()}</div>
         <div className="cover-header">
           <div className="month-year">{this.renderShowCurrentMonthYear()}</div>
@@ -206,7 +208,8 @@ export class CalendarStepThree extends Component {
             BOOK
           </Button>
         </form>
-      </section>
+      </Container>
+      // </section>
     );
   }
 }

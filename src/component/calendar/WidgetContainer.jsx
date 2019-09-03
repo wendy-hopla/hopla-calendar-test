@@ -77,9 +77,9 @@ export class WidgetContainer extends Component {
       case 1:
         return <Calendar nextStep={this.nextStep} />;
       case 2:
-        return <CalendarStep />;
-      // case 3:
-      //   return <CalendarStepThree />;
+        return <CalendarStep nextStep={this.nextStep} />;
+      case 3:
+        return <CalendarStepThree />;
     }
 
     switch (calendarContainer) {

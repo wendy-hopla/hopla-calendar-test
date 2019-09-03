@@ -121,6 +121,9 @@ class Calendar extends Component {
   daysInMonth = () => {
     return this.state.dateObject.daysInMonth();
   };
+  daysInMonthMobile = () => {
+    return this.state.dateObject.daysInMonth();
+  };
   year = () => {
     return this.state.dateObject.format("Y");
   };
@@ -394,6 +397,7 @@ class Calendar extends Component {
       blanks.push(<td className="calendar-day empty">{""}</td>);
     }
     let daysInMonth = [];
+    let daysInMonthMobile = [];
     for (let d = 1; d <= this.daysInMonth(); d++) {
       let currentDay = d === this.currentDay() ? "today" : "";
       /*let selectedClass = (d == this.state.selectedDay ? " selected-day " : "") */
@@ -410,7 +414,26 @@ class Calendar extends Component {
         </td>
       );
     }
+
+    for (let d = 1; d <= this.daysInMonthMobile(); d++) {
+      let currentDay = d === this.currentDay() ? "today" : "";
+      /*let selectedClass = (d == this.state.selectedDay ? " selected-day " : "") */
+      daysInMonthMobile.push(
+        <td key={d} className={`calendar-day ${currentDay}`}>
+          <span
+            onClick={e => {
+              this.onDayClick(e, d);
+              this.continue();
+            }}
+          >
+            {d}
+          </span>
+        </td>
+      );
+    }
+
     var totalSlots = [...blanks, ...daysInMonth];
+    var totalSlots = [...blanks, ...daysInMonthMobile];
     let rows = [];
     let cells = [];
 
@@ -429,6 +452,10 @@ class Calendar extends Component {
     });
 
     let daysinmonth = rows.map((d, i) => {
+      return <tr>{d}</tr>;
+    });
+
+    let daysinmonthmobile = rows.map((d, i) => {
       return <tr>{d}</tr>;
     });
 
@@ -646,20 +673,20 @@ class Calendar extends Component {
                     <thead>
                       <tr>{weekdayshortname}</tr>
                     </thead>
-                    <tbody>{daysinmonth}</tbody>
+                    <tbody>{daysinmonthmobile}</tbody>
                   </table>
                 </div>
               )}
             </div>
           </div>
           <div style={hidden} />
-          <div className="time-column" style={timeShown}>
+          {/* <div className="time-column" style={timeShown}>
             {timeSelections}
           </div>
           <div style={timeHidden} />
           <Col>
-            <div className="col filter-column">
-              <FormControl variant="filled" className={classes.formControl}>
+            <div className="col filter-column"> */}
+          {/* <FormControl variant="filled" className={classes.formControl}>
                 <InputLabel>Timezone</InputLabel>
                 <Select
                   value={this.state.timeZone}
@@ -698,17 +725,10 @@ class Calendar extends Component {
                     </ListItem>
                   ))}
                   {/* <HourList hourList={hourList} /> */}
-                </Scrollbars>
-              </List>
-              {/* <Button
-                variant="contained"
-                color="primary"
-                className="button-primary"
-              >
-                BOOK
-              </Button> */}
-            </div>
-          </Col>
+          {/* </Scrollbars>
+              </List> 
+            </div> */}
+          {/* </Col> */}
         </Row>
       </Container>
     );
