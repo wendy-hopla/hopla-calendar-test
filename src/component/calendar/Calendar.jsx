@@ -469,7 +469,7 @@ class Calendar extends Component {
 
     return (
       // <section className="body-section">
-      <Container maxWidth="sm">
+      <Container maxWidth="sm" className="mobi-no-pad">
         {timeSelections}
         <div className="top-header">{this.renderShowCurrentDay()}</div>
         <div className="cover-header">

@@ -136,7 +136,7 @@ export class CalendarStepThree extends Component {
 
     return (
       // <section className="body-section">
-      <Container maxWidth="sm">
+      <Container maxWidth="sm" className="mobi-no-pad">
         <div className="top-header">{this.renderShowCurrentDay()}</div>
         <div className="cover-header">
           <div className="month-year">{this.renderShowCurrentMonthYear()}</div>
