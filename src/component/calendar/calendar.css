@@ -15,6 +15,57 @@ body {
 .header-section {
   position: relative;
 }
+#time-id {
+  transform: translateX(100%);
+  -webkit-transform: translateX(100%);
+}
+#calendar-id {
+  transform: translateX(100%);
+  -webkit-transform: translateX(100%);
+}
+.wrapper-trans {
+  animation: slide-in 0.5s forwards;
+  -webkit-animation: slide-in 0.5s forwards;
+}
+.cal-wrapper-trans {
+  animation: slide-out 0.5s forwards;
+  -webkit-animation: slide-out 0.5s forwards;
+}
+@keyframes slide-in {
+  0% {
+    -webkit-transform: translateX(100%);
+  }
+  100% {
+    -webkit-transform: translateX(0%);
+  }
+}
+
+@-webkit-keyframes slide-in {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes slide-out {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@-webkit-keyframes slide-out {
+  0% {
+    -webkit-transform: translateX(-100%);
+  }
+  100% {
+    -webkit-transform: translateX(0%);
+  }
+}
 .top-header {
   text-align: center;
   padding: 8px;
@@ -618,7 +669,7 @@ form {
 @media (min-width: 1280px) {
   .tail-datetime-calendar .calendar-date table tbody tr > *::after {
     top: 3px;
-    left: 30px !important;
+    left: 43px !important;
     width: 29px;
     height: 29px;
     content: "";
@@ -641,7 +692,7 @@ form {
 @media (min-width: 1440px) {
   .tail-datetime-calendar .calendar-date table tbody tr > *::after {
     top: 3px;
-    left: 34px !important;
+    left: 6px !important;
     width: 29px;
     height: 29px;
     content: "";
@@ -654,10 +705,10 @@ form {
     -webkit-border-radius: 50%;
   }
   .tail-datetime-calendar .calendar-navi span.button-next {
-    padding-right: 40px !important;
+    padding-right: 16px !important;
   }
   .tail-datetime-calendar .calendar-navi span.button-prev {
-    padding-left: 40px !important;
+    padding-left: 16px !important;
   }
 }
 @media (min-width: 2560px) {

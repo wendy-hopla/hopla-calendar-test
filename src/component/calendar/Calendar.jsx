@@ -474,7 +474,7 @@ class Calendar extends Component {
             </Col>
           </Row>
         </div>
-        <Row className="desktop-view">
+        <Row id="calendar-id" className="desktop-view cal-wrapper-trans">
           <Col className="calendar-column" style={shown}>
             <div className="tail-datetime-calendar">
               <div className="calendar-navi">

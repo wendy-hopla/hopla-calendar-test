@@ -241,7 +241,7 @@ export class CalendarStep extends Component {
             </Col>
           </Row>
         </div>
-        <Row className="desktop-view">
+        <Row id="time-id" className="desktop-view wrapper-trans">
           <Col className="timezone-column" style={shown}>
             <div className="col filter-column">
               <FormControl variant="filled">
