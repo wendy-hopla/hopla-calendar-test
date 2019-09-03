@@ -60,6 +60,7 @@ class Calendar extends Component {
   state = {
     dateObject: moment(),
     currentDay: null,
+    currentDayMobile: null,
     showCalendarTable: true,
     showMonthTable: false,
     allmonths: moment.months(),
@@ -108,6 +109,9 @@ class Calendar extends Component {
   renderShowCurrentDay() {
     return this.state.dateObject.format("dddd");
   }
+  renderShowCurrentDayMobile() {
+    return this.state.dateObject.format("dddd");
+  }
   renderShowCurrentMonthYear() {
     return this.state.dateObject.format("MMMM, YYYY");
   }
@@ -128,6 +132,9 @@ class Calendar extends Component {
     return this.state.dateObject.format("Y");
   };
   currentDay = () => {
+    return this.state.dateObject.format("D");
+  };
+  currentDayMobile = () => {
     return this.state.dateObject.format("D");
   };
   firstDayOfMonth = () => {
@@ -159,10 +166,20 @@ class Calendar extends Component {
   showDay() {
     return <span>{this.currentDay}</span>;
   }
+  showDayMobile() {
+    return <span>{this.currentDayMobile}</span>;
+  }
   render() {
     return (
       <div>
         <p>{this.currentDay}</p>
+      </div>
+    );
+  }
+  render() {
+    return (
+      <div>
+        <p>{this.currentDayMobile}</p>
       </div>
     );
   }
@@ -416,10 +433,10 @@ class Calendar extends Component {
     }
 
     for (let d = 1; d <= this.daysInMonthMobile(); d++) {
-      let currentDay = d === this.currentDay() ? "today" : "";
+      let currentDayMobile = d === this.currentDayMobile() ? "today" : "";
       /*let selectedClass = (d == this.state.selectedDay ? " selected-day " : "") */
       daysInMonthMobile.push(
-        <td key={d} className={`calendar-day ${currentDay}`}>
+        <td key={d} className={`calendar-day ${currentDayMobile}`}>
           <span
             onClick={e => {
               this.onDayClick(e, d);
@@ -433,9 +450,12 @@ class Calendar extends Component {
     }
 
     var totalSlots = [...blanks, ...daysInMonth];
-    var totalSlots = [...blanks, ...daysInMonthMobile];
+    var totalSlotsMobile = [...blanks, ...daysInMonthMobile];
     let rows = [];
     let cells = [];
+
+    let rowsMobile = [];
+    let cellsMobile = [];
 
     totalSlots.forEach((row, i) => {
       if (i % 7 !== 0) {
@@ -451,11 +471,25 @@ class Calendar extends Component {
       }
     });
 
+    totalSlotsMobile.forEach((row, i) => {
+      if (i % 7 !== 0) {
+        cellsMobile.push(row);
+      } else {
+        rowsMobile.push(cellsMobile);
+        cellsMobile = [];
+        cellsMobile.push(row);
+      }
+      if (i === totalSlotsMobile.length - 1) {
+        /* let insertRow = cells.slice(); */
+        rowsMobile.push(cellsMobile);
+      }
+    });
+
     let daysinmonth = rows.map((d, i) => {
       return <tr>{d}</tr>;
     });
 
-    let daysinmonthmobile = rows.map((d, i) => {
+    let daysinmonthmobile = rowsMobile.map((d, i) => {
       return <tr>{d}</tr>;
     });
 

@@ -566,7 +566,7 @@ form {
 }
 @media (min-width: 375px) {
   .tail-datetime-calendar .calendar-date table tbody tr > *::after {
-    left: 11px !important;
+    left: 16px !important;
   }
   .calendar-column {
     margin-top: 8px;
