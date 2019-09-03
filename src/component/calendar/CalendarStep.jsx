@@ -5,6 +5,7 @@ import "./calendar.css";
 
 //Material UI
 import PropTypes from "prop-types";
+import { makeStyles } from "@material-ui/core/styles";
 import { withStyles } from "@material-ui/core/styles";
 import FilledInput from "@material-ui/core/FilledInput";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -13,6 +14,9 @@ import Select from "@material-ui/core/Select";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
+import Container from "@material-ui/core/Container";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
 
 // import { range } from "moment-range";
 //Import Other Components
@@ -53,7 +57,24 @@ const styles = theme => ({
   }
 });
 
-class CalendarStep extends Component {
+const useStyles = makeStyles(theme => ({
+  container: {
+    display: "flex",
+    flexWrap: "wrap"
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1)
+  },
+  dense: {
+    marginTop: theme.spacing(2)
+  },
+  menu: {
+    width: 200
+  }
+}));
+
+export class CalendarStep extends Component {
   state = {
     dateObject: moment(),
     currentDay: null,
@@ -146,6 +167,22 @@ class CalendarStep extends Component {
     const hourList = null;
     const { calendarContainer } = this.state;
 
+    const classes = useStyles;
+    const { name, email, comment } = this.state;
+    const values = {
+      name,
+      email,
+      comment
+    };
+    const setValues = {
+      name,
+      email,
+      comment
+    };
+    const handleChange = name => event => {
+      setValues({ ...values, [name]: event.target.value });
+    };
+
     var shown = {
       display: this.state.shown ? "block" : "none"
     };
@@ -172,7 +209,8 @@ class CalendarStep extends Component {
     }
 
     return (
-      <section className="body-section">
+      // <section className="body-section">
+      <Container maxWidth="sm">
         <div className="top-header">{this.renderShowCurrentDay()}</div>
         <div className="cover-header">
           <div className="month-year">{this.renderShowCurrentMonthYear()}</div>
@@ -204,7 +242,7 @@ class CalendarStep extends Component {
           </Row>
         </div>
         <Row className="desktop-view">
-          <div className="timezone-column" style={shown}>
+          <Col className="timezone-column" style={shown}>
             <div className="col filter-column">
               <FormControl variant="filled">
                 <InputLabel>Timezone</InputLabel>
@@ -235,10 +273,10 @@ class CalendarStep extends Component {
                     <ListItem key={data} className="hour-row">
                       <ListItemText className="hour-item">
                         <span
-                          onClick={e => {
-                            // this.onTimeClick(e);
-                            this.continue();
-                          }}
+                        // onClick={e => {
+                        //   // this.onTimeClick(e);
+                        //   this.continue();
+                        // }}
                         >
                           {data}
                         </span>
@@ -249,20 +287,60 @@ class CalendarStep extends Component {
                 </Scrollbars>
               </List>
             </div>
-          </div>
-          <div style={hidden} />
-          {/* <Col className="form-column">
-          {formContainer}
-          </Col> */}
+          </Col>
+          <Col>
+            <form
+              className={classes.container}
+              desk-form
+              noValidate
+              autoComplete="off"
+            >
+              <TextField
+                id="outlined-name"
+                label="Name"
+                className={classes.textField}
+                value={values.name}
+                onChange={handleChange("name")}
+                margin="normal"
+                variant="outlined"
+              />
+              <TextField
+                id="outlined-name"
+                label="Email"
+                className={classes.textField}
+                value={values.email}
+                onChange={handleChange("email")}
+                margin="normal"
+                variant="outlined"
+              />
+              <TextField
+                id="outlined-name"
+                label="Comment"
+                className={classes.textField}
+                value={values.comment}
+                onChange={handleChange("comment")}
+                margin="normal"
+                variant="outlined"
+              />
+              <Button
+                variant="contained"
+                color="primary"
+                className="button-primary"
+              >
+                BOOK
+              </Button>
+            </form>
+          </Col>
         </Row>
         <Row className="mobile-view mobile-time">
-          <div className="mobile-view-time" style={timeShown}>
-            <div className="col filter-column">
+          <Col className="mobile-view-time" style={shown}>
+            <div className="col filter-column-mobile">
               <FormControl variant="filled">
                 <InputLabel>Timezone</InputLabel>
                 <Select
                   value={this.state.timeZone}
                   onChange={this.handleChange("timeZone")}
+                  hintText="GMT+2 (South Africa)"
                   input={
                     <FilledInput
                       placeholder="GMT+2 (South Africa)"
@@ -286,10 +364,10 @@ class CalendarStep extends Component {
                     <ListItem key={data} className="hour-row">
                       <ListItemText className="hour-item">
                         <span
-                          onClick={e => {
-                            // this.onTimeClick(e);
-                            this.continue();
-                          }}
+                        // onClick={e => {
+                        //   // this.onTimeClick(e);
+                        //   this.continue();
+                        // }}
                         >
                           {data}
                         </span>
@@ -300,13 +378,52 @@ class CalendarStep extends Component {
                 </Scrollbars>
               </List>
             </div>
-          </div>
-          <div style={timeHidden} />
-          {/* <div className="mobile-view-form">
-          {formContainer}
-        </div> */}
+          </Col>
+          <Col>
+            <form
+              className={classes.container}
+              desk-form
+              noValidate
+              autoComplete="off"
+            >
+              <TextField
+                id="outlined-name"
+                label="Name"
+                className={classes.textField}
+                value={values.name}
+                onChange={handleChange("name")}
+                margin="normal"
+                variant="outlined"
+              />
+              <TextField
+                id="outlined-name"
+                label="Email"
+                className={classes.textField}
+                value={values.email}
+                onChange={handleChange("email")}
+                margin="normal"
+                variant="outlined"
+              />
+              <TextField
+                id="outlined-name"
+                label="Comment"
+                className={classes.textField}
+                value={values.comment}
+                onChange={handleChange("comment")}
+                margin="normal"
+                variant="outlined"
+              />
+              <Button
+                variant="contained"
+                color="primary"
+                className="button-primary"
+              >
+                BOOK
+              </Button>
+            </form>
+          </Col>
         </Row>
-      </section>
+      </Container>
     );
   }
 }

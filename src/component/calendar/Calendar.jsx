@@ -11,7 +11,15 @@ import CalendarStep from "./CalendarStep";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Select from "@material-ui/core/Select";
-
+import Container from "@material-ui/core/Container";
+//Material UI
+import FilledInput from "@material-ui/core/FilledInput";
+import InputLabel from "@material-ui/core/InputLabel";
+import FormControl from "@material-ui/core/FormControl";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import { Scrollbars } from "react-custom-scrollbars";
 //Bootstrap Grid
 import { Row } from "react-bootstrap";
 import { Col } from "react-bootstrap";
@@ -65,7 +73,36 @@ class Calendar extends Component {
     displayForm: false,
     formContainer: null,
     shown: true,
-    timeShown: true
+    timeShown: true,
+    selectedTimezone: null,
+    timeZone: momentTZ.tz.names(),
+    hourList: [
+      "00:00 - 00:30",
+      "00:30 - 01:00",
+      "01:30 - 02:00",
+      "02:30 - 03:00",
+      "03:30 - 04:00",
+      "04:30 - 05:00",
+      "05:30 - 06:00",
+      "06:30 - 07:00",
+      "07:30 - 08:00",
+      "08:30 - 09:00",
+      "09:30 - 10:00",
+      "10:30 - 11:00",
+      "11:30 - 12:00",
+      "12:30 - 13:00",
+      "13:30 - 14:00",
+      "14:30 - 15:00",
+      "15:30 - 16:00",
+      "16:30 - 17:00",
+      "17:30 - 18:00",
+      "18:30 - 19:00",
+      "19:30 - 20:00",
+      "20:30 - 21:00",
+      "21:30 - 22:00",
+      "22:30 - 23:00",
+      "23:30 - 24:00"
+    ]
   };
 
   renderShowCurrentDay() {
@@ -365,7 +402,7 @@ class Calendar extends Component {
           <span
             onClick={e => {
               this.onDayClick(e, d);
-              this.continue();
+              // this.continue();
             }}
           >
             {d}
@@ -404,7 +441,8 @@ class Calendar extends Component {
     }
 
     return (
-      <section className="body-section">
+      // <section className="body-section">
+      <Container maxWidth="sm">
         {timeSelections}
         <div className="top-header">{this.renderShowCurrentDay()}</div>
         <div className="cover-header">
@@ -437,7 +475,7 @@ class Calendar extends Component {
           </Row>
         </div>
         <Row className="desktop-view">
-          <div className="calendar-column" style={shown}>
+          <Col className="calendar-column" style={shown}>
             <div className="tail-datetime-calendar">
               <div className="calendar-navi">
                 <span
@@ -498,10 +536,60 @@ class Calendar extends Component {
                 </div>
               )}
             </div>
-          </div>
-          <div style={hidden}>
-            {/* this is not to display the calendar table */}
-          </div>
+          </Col>
+          <Col className="timezone-column" style={shown}>
+            <div className="col filter-column">
+              <FormControl variant="filled">
+                <InputLabel>Timezone</InputLabel>
+                <Select
+                  value={this.state.timeZone}
+                  onChange={this.handleChange("timeZone")}
+                  hintText="GMT+2 (South Africa)"
+                  input={
+                    <FilledInput
+                      placeholder="GMT+2 (South Africa)"
+                      name="timeZone"
+                      id="filled-timeZone-simple"
+                    />
+                  }
+                >
+                  <MenuItem>GMT+2 (South Africa)</MenuItem>
+                  {this.state.timeZone.map(data => (
+                    <MenuItem key={data} className="time-list">
+                      <span>{data}</span>
+                      <br />
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <List className="hour">
+                <Scrollbars>
+                  {this.state.hourList.map(data => (
+                    <ListItem key={data} className="hour-row">
+                      <ListItemText className="hour-item">
+                        <span
+                          onClick={e => {
+                            //   // this.onTimeClick(e);
+                            this.continue();
+                          }}
+                        >
+                          {data}
+                        </span>
+                      </ListItemText>
+                    </ListItem>
+                  ))}
+                  {/* <HourList hourList={hourList} /> */}
+                </Scrollbars>
+              </List>
+              {/* <Button
+                variant="contained"
+                color="primary"
+                className="button-primary"
+              >
+                BOOK
+              </Button> */}
+            </div>
+          </Col>
         </Row>
         <Row className="mobile-view">
           <div className="calendar-column" style={shown}>
@@ -569,27 +657,60 @@ class Calendar extends Component {
             {timeSelections}
           </div>
           <div style={timeHidden} />
-          {/* <Col>
-                  <div className="col filter-column">
-                  <FormControl variant="filled" className={classes.formControl}>
-                  <InputLabel>Timezone</InputLabel>
-                    <Select value={this.state.timeZone} onChange={this.handleChange('timeZone')} input={<FilledInput placeholder="GMT+2 (South Africa)" name="timeZone" id="filled-timeZone-simple"/>}>
-                      <MenuItem>GMT+2 (South Africa)</MenuItem>
-                      {this.state.timeZone.map(data => <MenuItem key={data} className="time-list"><span>{data}</span><br/></MenuItem>)}
-                    </Select>
-                  </FormControl>
-                  <List className="hour">
-                  <Scrollbars>
-                    {this.state.hourList.map(data => <ListItem key={data} className="hour-row"><ListItemText className="hour-item">{data}</ListItemText><br/></ListItem>)}
-                  </Scrollbars>
-                  </List>
-                  <Button variant="contained" color="primary" className="button-primary">
-                    BOOK
-                  </Button>
-                  </div>
-                  </Col> */}
+          <Col>
+            <div className="col filter-column">
+              <FormControl variant="filled" className={classes.formControl}>
+                <InputLabel>Timezone</InputLabel>
+                <Select
+                  value={this.state.timeZone}
+                  onChange={this.handleChange("timeZone")}
+                  input={
+                    <FilledInput
+                      placeholder="GMT+2 (South Africa)"
+                      name="timeZone"
+                      id="filled-timeZone-simple"
+                    />
+                  }
+                >
+                  <MenuItem>GMT+2 (South Africa)</MenuItem>
+                  {this.state.timeZone.map(data => (
+                    <MenuItem key={data} className="time-list">
+                      <span>{data}</span>
+                      <br />
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <List className="hour">
+                <Scrollbars>
+                  {this.state.hourList.map(data => (
+                    <ListItem key={data} className="hour-row">
+                      <ListItemText className="hour-item">
+                        <span
+                          onClick={e => {
+                            // this.onTimeClick(e);
+                            this.continue();
+                          }}
+                        >
+                          {data}
+                        </span>
+                      </ListItemText>
+                    </ListItem>
+                  ))}
+                  {/* <HourList hourList={hourList} /> */}
+                </Scrollbars>
+              </List>
+              {/* <Button
+                variant="contained"
+                color="primary"
+                className="button-primary"
+              >
+                BOOK
+              </Button> */}
+            </div>
+          </Col>
         </Row>
-      </section>
+      </Container>
     );
   }
 }
