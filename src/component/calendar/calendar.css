@@ -669,7 +669,7 @@ form {
 @media (min-width: 1280px) {
   .tail-datetime-calendar .calendar-date table tbody tr > *::after {
     top: 3px;
-    left: 43px !important;
+    left: 5px !important;
     width: 29px;
     height: 29px;
     content: "";
@@ -682,10 +682,10 @@ form {
     -webkit-border-radius: 50%;
   }
   .tail-datetime-calendar .calendar-navi span.button-next {
-    padding-right: 40px !important;
+    padding-right: 15px !important;
   }
   .tail-datetime-calendar .calendar-navi span.button-prev {
-    padding-left: 40px !important;
+    padding-left: 15px !important;
   }
 }
 
