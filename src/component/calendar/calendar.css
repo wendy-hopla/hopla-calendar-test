@@ -17,8 +17,8 @@ body {
   box-sizing: border-box;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 0;
-  padding-right: 0;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }
 .header-section {
   position: relative;
@@ -752,10 +752,10 @@ form {
   }
 }
 
-@media (max-width: 720px) {
+/* @media (max-width: 720px) {
   .MuiContainer-root {
     padding-left: 0 !important;
     padding-right: 0 !important;
   }
-}
+} */
 /* @end of media queries */
