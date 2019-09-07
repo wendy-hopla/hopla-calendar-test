@@ -12,6 +12,14 @@ body {
   background: #fff;
   overflow-x: hidden;
 }
+.MuiContainer-root {
+  width: 100%;
+  box-sizing: border-box;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 0;
+  padding-right: 0;
+}
 .header-section {
   position: relative;
 }
@@ -745,7 +753,7 @@ form {
 }
 
 @media (max-width: 720px) {
-  .mobi-no-pad {
+  .MuiContainer-root {
     padding-left: 0 !important;
     padding-right: 0 !important;
   }
